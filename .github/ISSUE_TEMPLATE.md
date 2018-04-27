@@ -15,7 +15,7 @@ possible:
   - OS:
   - Node.js version:
   - npm version:
-  - `text-to-speech` version:
+  - `@google-cloud/text-to-speech` version:
 
 #### Steps to reproduce
 
