@@ -43,7 +43,7 @@
     "docs": "repo-tools exec -- jsdoc -c .jsdoc.js"
   },
   "dependencies": {
-    "google-gax": "^0.16.0",
+    "google-gax": "^0.17.0",
     "lodash.merge": "^4.6.0"
   },
   "devDependencies": {
