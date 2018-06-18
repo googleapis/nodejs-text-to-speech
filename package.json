@@ -30,7 +30,12 @@
   ],
   "contributors": [
     "Alexander Fenster <fenster@google.com>",
-    "Rebecca Taylor <rebeccataylor@google.com>"
+    "Chris Wilcox <crwilcox@google.com>",
+    "Christopher Wilcox <git@crwilcox.com>",
+    "Justin Beckwith <justin.beckwith@gmail.com>",
+    "Rebecca Taylor <becca@becca.me>",
+    "Rebecca Taylor <rebeccataylor@google.com>",
+    "greenkeeper[bot] <greenkeeper[bot]@users.noreply.github.com>"
   ],
   "scripts": {
     "test": "repo-tools test run --cmd npm -- run cover",
