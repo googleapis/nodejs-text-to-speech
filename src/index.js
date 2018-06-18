@@ -30,6 +30,7 @@
 // Import the clients for each version supported by this package.
 const gapic = Object.freeze({
   v1beta1: require('./v1beta1'),
+  v1: require('./v1'),
 });
 
 /**
@@ -74,6 +75,13 @@ module.exports = gapic.v1beta1;
  *   Reference to {@link v1beta1.TextToSpeechClient}
  */
 module.exports.v1beta1 = gapic.v1beta1;
+
+/**
+ * @type {object}
+ * @property {constructor} TextToSpeechClient
+ *   Reference to {@link v1.TextToSpeechClient}
+ */
+module.exports.v1 = gapic.v1;
 
 // Alias `module.exports` as `module.exports.default`, for future-proofing.
 module.exports.default = Object.assign({}, module.exports);

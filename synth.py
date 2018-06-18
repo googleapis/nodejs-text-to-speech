@@ -20,7 +20,7 @@ import subprocess
 
 gapic = gcp.GAPICGenerator()
 
-versions = ['v1beta1']
+versions = ['v1', 'v1beta1']
 
 for version in versions:
     library = gapic.node_library('texttospeech', version)
