@@ -15,6 +15,12 @@
 
 'use strict';
 
+/*
+* TODO(developer): Uncomment the following lines before running the sample.
+*/
+//const text = 'Text to synthesize, eg. hello';
+//const outputFile = 'Local path to save audio file to, e.g. output.mp3';
+
 function synthesize_text(text, outputFile, effectsProfileId) {
   //[START tts_synthesize_text]
   //Synthesizes speech from the input string of text
@@ -24,12 +30,6 @@ function synthesize_text(text, outputFile, effectsProfileId) {
   //Imports the Google Cloud client library
   //Creates a client
   const client = new speech.TextToSpeechClient();
-
-  /*
-   * TODO(developer): Uncomment the following lines before running the sample.
-   */
-  //const text = 'Text to synthesize, eg. hello';
-  //const outputFile = 'Local path to save audio file to, e.g. output.mp3';
 
   const request = {
     input: {text: text},
@@ -55,12 +55,7 @@ function synthesize_text(text, outputFile, effectsProfileId) {
   // [END tts_synthesize_text]
 }
 
+const text = `HI EVERYBODY!  THIS IS A TEST`;
 const outputfile = `hello.mp3`;
-synthesize_text(
-  `HI EVERYBODY!  THIS IS A TEST`,
-  outputfile,
-  `telephony-class-application`
-);
 
-//default effectsProfileID is:
-//`telephony-class-application`
+synthesize_text(text, outputfile, `telephony-class-application`);
