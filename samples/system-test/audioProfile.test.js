@@ -23,56 +23,62 @@ const tools = require(`@google-cloud/nodejs-repo-tools`);
 const cmd = `node audioProfile.js`;
 const cwd = path.join(__dirname, `..`);
 const text = `Hello Everybody!  This is an Audio Profile Optimized Sound Byte.  `;
-const outputFile = `test-output.mp3`;
+const outputFile1 = `phonetest.mp3`;
+const outputFile2 = `homeTheatreTest.mp3`;
+const outputFile3 = `carAudioTest.mp3`;
+const outputFile4 = `watchAudioTest.mp3`;
 // const files = [`hello.txt`, `hello.ssml`].map(name => {
 //   return {
 //     name,
 //     localPath: path.resolve(path.join(__dirname, `../resources/${name}`)),
-//   };
+//   };npm
 // });
 
 test.before(tools.checkCredentials);
 
-test.after.always(async () => {
-  await fs.unlink(outputFile);
+test.after(async () => {
+  await fs.unlink(outputFile1);
+  await fs.unlink(outputFile2);
+  await fs.unlink(outputFile3);
+  await fs.unlink(outputFile4);
 });
 
 test(`Should synthesize Speech for Telephone Audio Profile`, async t => {
-  t.false(fs.existsSync(outputFile));
+  t.false(fs.existsSync(outputFile1));
   const output = await tools.runAsync(
-    `${cmd} synthesize '${text}' -f '${outputFile}' -e telephony-class-application`,
+    `${cmd} synthesize '${text}' -f '${outputFile1}' -e telephony-class-application`,
     cwd
   );
-  t.true(output.includes(`Audio content written to file: ${outputFile}`));
-  t.true(fs.existsSync(outputFile));
+  t.true(output.includes(`Audio content written to file: ${outputFile1}`));
+  t.true(fs.existsSync(outputFile1));
 });
 
 test(`Should synthesize Speech for Home Theatre Audio Profile`, async t => {
-  t.false(fs.existsSync(outputFile));
+  t.false(fs.existsSync(outputFile2));
   const output = await tools.runAsync(
-    `${cmd} synthesize '${text}' -f '${outputFile}' -e large-home-entertainment-class-device`,
+    `${cmd} synthesize '${text}' -f '${outputFile2}' -e large-home-entertainment-class-device`,
     cwd
   );
-  t.true(output.includes(`Audio content written to file: ${outputFile}`));
-  t.true(fs.existsSync(outputFile));
+  t.true(output.includes(`Audio content written to file: ${outputFile2}`));
+  t.true(fs.existsSync(outputFile2));
 });
 
 test(`Should synthesize Speech for Car Audio Audio Profile`, async t => {
-  t.false(fs.existsSync(outputFile));
+  t.false(fs.existsSync(outputFile3));
   const output = await tools.runAsync(
-    `${cmd} synthesize '${text}' -f '${outputFile}' -e large-automotive-class-device`,
+    `${cmd} synthesize '${text}' -f '${outputFile3}' -e large-automotive-class-device`,
     cwd
   );
-  t.true(output.includes(`Audio content written to file: ${outputFile}`));
-  t.true(fs.existsSync(outputFile));
+  t.true(output.includes(`Audio content written to file: ${outputFile3}`));
+  t.true(fs.existsSync(outputFile3));
 });
 
 test(`should synthesize Speech for Watch Audio Profile`, async t => {
-  t.false(fs.existsSync(outputFile));
+  t.false(fs.existsSync(outputFile4));
   const output = await tools.runAsync(
-    `${cmd} synthesize '${text}' -f '${outputFile}' -e wearable-class-device`,
+    `${cmd} synthesize '${text}' -f '${outputFile4}' -e wearable-class-device`,
     cwd
   );
-  t.true(output.includes(`Audio content written to file: ${outputFile}`));
-  t.true(fs.existsSync(outputFile));
+  t.true(output.includes(`Audio content written to file: ${outputFile4}`));
+  t.true(fs.existsSync(outputFile4));
 });
