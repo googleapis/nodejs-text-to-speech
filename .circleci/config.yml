@@ -78,7 +78,6 @@ jobs:
           command: |-
             mkdir -p /home/node/.npm-global
             npm install
-            npm link
           environment:
             NPM_CONFIG_PREFIX: /home/node/.npm-global
       - run:
@@ -120,9 +119,8 @@ jobs:
           name: Link the module being tested to the samples.
           command: |
             cd samples/
-            npm link @google-cloud/text-to-speech
             npm install
-            cd ..
+            npm link ../
           environment:
             NPM_CONFIG_PREFIX: /home/node/.npm-global
       - run:
