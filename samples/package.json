@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@google-cloud/text-to-speech": "0.2.0",
-    "async": "2.5.0",
+    "async": "2.6.1",
     "yargs": "10.0.3"
   },
   "devDependencies": {
