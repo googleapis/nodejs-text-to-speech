@@ -31,41 +31,10 @@ for version in versions:
     s.copy(library / 'system-test')
     s.copy(library / 'test')
 
-'''
-Build private versions
-'''
-gapic = gcp.GAPICGenerator(private=True)
-
-versions = []
-
-for version in versions:
-    library = gapic.node_library('texttospeech', version)
-
-    s.copy(library / 'protos')
-    s.copy(library / 'src' / version)
-    s.copy(library / 'samples')
-    s.copy(library / 'system-test')
-    s.copy(library / 'test')
 
 '''
 Node.js specific cleanup
 '''
-# Repo Cleanup/Setup
-subprocess.run(['rm', '-rf', 'package-lock.json'])
-subprocess.run(['npm', 'install'])
-
-subprocess.run(
-    ['rm', '-rf', 'package-lock.json'],
-    cwd='./samples',
-)
-subprocess.run(
-    ['npm', 'install'],
-    cwd='./samples',
-)
-
-# Generates scaffolding, enters contributors names
-subprocess.run(['npm', 'run', 'generate-scaffolding'])
-
-# prettify and lint
+subprocess.run(['npm', 'ci'])
 subprocess.run(['npm', 'run', 'prettier'])
 subprocess.run(['npm', 'run', 'lint'])
