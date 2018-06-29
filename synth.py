@@ -16,7 +16,10 @@
 
 import synthtool as s
 import synthtool.gcp as gcp
+import logging
 import subprocess
+
+logging.basicConfig(level=logging.DEBUG)
 
 gapic = gcp.GAPICGenerator()
 
@@ -25,16 +28,15 @@ versions = ['v1beta1']
 for version in versions:
     library = gapic.node_library('texttospeech', version)
 
-    s.copy(library / 'protos')
-    s.copy(library / 'src' / version)
-    s.copy(library / 'samples')
-    s.copy(library / 'system-test')
-    s.copy(library / 'test')
+    # skip index, protos, package.json, and README.md
+    s.copy(
+        library,
+        excludes=['package.json', 'README.md', 'src/index.js'],
+    )
 
-
-'''
-Node.js specific cleanup
-'''
+#
+# Node.js specific cleanup
+#
 subprocess.run(['npm', 'ci'])
 subprocess.run(['npm', 'run', 'prettier'])
 subprocess.run(['npm', 'run', 'lint'])
