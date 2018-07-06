@@ -30,18 +30,18 @@ function synthesizeText(
 ) {
   //[START tts_synthesizeText]
   //Synthesizes speech from the input string of text
+
+  //Imports the Google Cloud client library
   const speech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
 
-  //Imports the Google Cloud client library
   //Creates a client
   const client = new speech.TextToSpeechClient();
 
   const request = {
     input: {text: text},
     voice: {languageCode: languageCode, ssmlGender: ssmlGender},
-    audioConfig: {audioEncoding: 'MP3'},
-    effectsProfileId: effectsProfileId,
+    audioConfig: {audioEncoding: 'MP3', effectsProfileId: effectsProfileId},
   };
 
   client.synthesizeSpeech(request, (err, response) => {
@@ -103,7 +103,7 @@ require(`yargs`)
       default: 'en-US',
       global: true,
       requiresArg: true,
-      type: 'string',
+      tnodeype: 'string',
     },
     ssmlGender: {
       alias: 'g',
@@ -113,6 +113,7 @@ require(`yargs`)
       type: 'string',
     },
   })
+  .array(`effectsProfileId`)
   .example(`node $0 synthesize "Enter Phrase to Test Here"`)
   .example(
     `node $0 synthesize "This is optimized for Phone" -f ./resources/phone.mp3 -e telephony-class-application -l en-US`
