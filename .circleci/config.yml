@@ -97,8 +97,8 @@ jobs:
           name: Link the module being tested to the samples.
           command: |
             cd samples/
-            npm install
             npm link ../
+            npm install
           environment:
             NPM_CONFIG_PREFIX: /home/node/.npm-global
       - run:
@@ -150,5 +150,5 @@ jobs:
         user: node
     steps:
       - checkout
-      - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run: npm publish
