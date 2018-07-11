@@ -70,6 +70,7 @@ jobs:
           command: |-
             mkdir -p /home/node/.npm-global
             npm install
+            npm link
           environment:
             NPM_CONFIG_PREFIX: /home/node/.npm-global
       - run: npm test
