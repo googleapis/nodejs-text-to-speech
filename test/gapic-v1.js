@@ -141,7 +141,6 @@ describe('TextToSpeechClient', () => {
       });
     });
   });
-
 });
 
 function mockSimpleGrpcMethod(expectedRequest, response, error) {

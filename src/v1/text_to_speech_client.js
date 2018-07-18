@@ -118,10 +118,7 @@ class TextToSpeechClient {
 
     // Iterate over each of the methods that the service provides
     // and create an API call method for each.
-    var textToSpeechStubMethods = [
-      'listVoices',
-      'synthesizeSpeech',
-    ];
+    var textToSpeechStubMethods = ['listVoices', 'synthesizeSpeech'];
     for (let methodName of textToSpeechStubMethods) {
       this._innerApiCalls[methodName] = gax.createApiCall(
         textToSpeechStub.then(
@@ -156,9 +153,7 @@ class TextToSpeechClient {
    * in this service.
    */
   static get scopes() {
-    return [
-      'https://www.googleapis.com/auth/cloud-platform',
-    ];
+    return ['https://www.googleapis.com/auth/cloud-platform'];
   }
 
   /**
@@ -292,6 +287,5 @@ class TextToSpeechClient {
     return this._innerApiCalls.synthesizeSpeech(request, options, callback);
   }
 }
-
 
 module.exports = TextToSpeechClient;
