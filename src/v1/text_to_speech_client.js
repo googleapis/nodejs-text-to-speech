@@ -25,7 +25,7 @@ const VERSION = require('../../package.json').version;
  * Service that implements Google Cloud Text-to-Speech API.
  *
  * @class
- * @memberof v1beta1
+ * @memberof v1
  */
 class TextToSpeechClient {
   /**
@@ -92,13 +92,13 @@ class TextToSpeechClient {
       {},
       gaxGrpc.loadProto(
         path.join(__dirname, '..', '..', 'protos'),
-        'google/cloud/texttospeech/v1beta1/cloud_tts.proto'
+        'google/cloud/texttospeech/v1/cloud_tts.proto'
       )
     );
 
     // Put together the default options sent with requests.
     var defaults = gaxGrpc.constructSettings(
-      'google.cloud.texttospeech.v1beta1.TextToSpeech',
+      'google.cloud.texttospeech.v1.TextToSpeech',
       gapicConfig,
       opts.clientConfig,
       {'x-goog-api-client': clientHeader.join(' ')}
@@ -110,9 +110,9 @@ class TextToSpeechClient {
     this._innerApiCalls = {};
 
     // Put together the "service stub" for
-    // google.cloud.texttospeech.v1beta1.TextToSpeech.
+    // google.cloud.texttospeech.v1.TextToSpeech.
     var textToSpeechStub = gaxGrpc.createStub(
-      protos.google.cloud.texttospeech.v1beta1.TextToSpeech,
+      protos.google.cloud.texttospeech.v1.TextToSpeech,
       opts
     );
 
@@ -190,16 +190,16 @@ class TextToSpeechClient {
    * @param {function(?Error, ?Object)} [callback]
    *   The function which will be called with the result of the API call.
    *
-   *   The second parameter to the callback is an object representing [ListVoicesResponse]{@link google.cloud.texttospeech.v1beta1.ListVoicesResponse}.
+   *   The second parameter to the callback is an object representing [ListVoicesResponse]{@link google.cloud.texttospeech.v1.ListVoicesResponse}.
    * @returns {Promise} - The promise which resolves to an array.
-   *   The first element of the array is an object representing [ListVoicesResponse]{@link google.cloud.texttospeech.v1beta1.ListVoicesResponse}.
+   *   The first element of the array is an object representing [ListVoicesResponse]{@link google.cloud.texttospeech.v1.ListVoicesResponse}.
    *   The promise has a method named "cancel" which cancels the ongoing API call.
    *
    * @example
    *
-   * const textToSpeech = require('text-to-speech.v1beta1');
+   * const textToSpeech = require('text-to-speech.v1');
    *
-   * var client = new textToSpeech.v1beta1.TextToSpeechClient({
+   * var client = new textToSpeech.v1.TextToSpeechClient({
    *   // optional auth parameters.
    * });
    *
@@ -232,31 +232,31 @@ class TextToSpeechClient {
    * @param {Object} request.input
    *   Required. The Synthesizer requires either plain text or SSML as input.
    *
-   *   This object should have the same structure as [SynthesisInput]{@link google.cloud.texttospeech.v1beta1.SynthesisInput}
+   *   This object should have the same structure as [SynthesisInput]{@link google.cloud.texttospeech.v1.SynthesisInput}
    * @param {Object} request.voice
    *   Required. The desired voice of the synthesized audio.
    *
-   *   This object should have the same structure as [VoiceSelectionParams]{@link google.cloud.texttospeech.v1beta1.VoiceSelectionParams}
+   *   This object should have the same structure as [VoiceSelectionParams]{@link google.cloud.texttospeech.v1.VoiceSelectionParams}
    * @param {Object} request.audioConfig
    *   Required. The configuration of the synthesized audio.
    *
-   *   This object should have the same structure as [AudioConfig]{@link google.cloud.texttospeech.v1beta1.AudioConfig}
+   *   This object should have the same structure as [AudioConfig]{@link google.cloud.texttospeech.v1.AudioConfig}
    * @param {Object} [options]
    *   Optional parameters. You can override the default settings for this call, e.g, timeout,
    *   retries, paginations, etc. See [gax.CallOptions]{@link https://googleapis.github.io/gax-nodejs/global.html#CallOptions} for the details.
    * @param {function(?Error, ?Object)} [callback]
    *   The function which will be called with the result of the API call.
    *
-   *   The second parameter to the callback is an object representing [SynthesizeSpeechResponse]{@link google.cloud.texttospeech.v1beta1.SynthesizeSpeechResponse}.
+   *   The second parameter to the callback is an object representing [SynthesizeSpeechResponse]{@link google.cloud.texttospeech.v1.SynthesizeSpeechResponse}.
    * @returns {Promise} - The promise which resolves to an array.
-   *   The first element of the array is an object representing [SynthesizeSpeechResponse]{@link google.cloud.texttospeech.v1beta1.SynthesizeSpeechResponse}.
+   *   The first element of the array is an object representing [SynthesizeSpeechResponse]{@link google.cloud.texttospeech.v1.SynthesizeSpeechResponse}.
    *   The promise has a method named "cancel" which cancels the ongoing API call.
    *
    * @example
    *
-   * const textToSpeech = require('text-to-speech.v1beta1');
+   * const textToSpeech = require('text-to-speech.v1');
    *
-   * var client = new textToSpeech.v1beta1.TextToSpeechClient({
+   * var client = new textToSpeech.v1.TextToSpeechClient({
    *   // optional auth parameters.
    * });
    *

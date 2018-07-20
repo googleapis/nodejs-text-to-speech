@@ -25,7 +25,7 @@ error.code = FAKE_STATUS_CODE;
 describe('TextToSpeechClient', () => {
   describe('listVoices', () => {
     it('invokes listVoices without error', done => {
-      var client = new textToSpeechModule.v1beta1.TextToSpeechClient({
+      var client = new textToSpeechModule.v1.TextToSpeechClient({
         credentials: {client_email: 'bogus', private_key: 'bogus'},
         projectId: 'bogus',
       });
@@ -50,7 +50,7 @@ describe('TextToSpeechClient', () => {
     });
 
     it('invokes listVoices with error', done => {
-      var client = new textToSpeechModule.v1beta1.TextToSpeechClient({
+      var client = new textToSpeechModule.v1.TextToSpeechClient({
         credentials: {client_email: 'bogus', private_key: 'bogus'},
         projectId: 'bogus',
       });
@@ -76,7 +76,7 @@ describe('TextToSpeechClient', () => {
 
   describe('synthesizeSpeech', () => {
     it('invokes synthesizeSpeech without error', done => {
-      var client = new textToSpeechModule.v1beta1.TextToSpeechClient({
+      var client = new textToSpeechModule.v1.TextToSpeechClient({
         credentials: {client_email: 'bogus', private_key: 'bogus'},
         projectId: 'bogus',
       });
@@ -111,7 +111,7 @@ describe('TextToSpeechClient', () => {
     });
 
     it('invokes synthesizeSpeech with error', done => {
-      var client = new textToSpeechModule.v1beta1.TextToSpeechClient({
+      var client = new textToSpeechModule.v1.TextToSpeechClient({
         credentials: {client_email: 'bogus', private_key: 'bogus'},
         projectId: 'bogus',
       });
