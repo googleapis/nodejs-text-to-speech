@@ -24,17 +24,11 @@ const tools = require(`@google-cloud/nodejs-repo-tools`);
 
 const cmd = `node audioProfile.js`;
 const cwd = path.join(__dirname, `..`);
-const text = `Hello Everybody!  This is an Audio Profile Optimized Sound Byte.  `;
+const text = `Hello Everybody!  This is an Audio Profile Optimized Sound Byte.`;
 const outputFile1 = `phonetest.mp3`;
 const outputFile2 = `homeTheatreTest.mp3`;
 const outputFile3 = `carAudioTest.mp3`;
 const outputFile4 = `watchAudioTest.mp3`;
-// const files = [`hello.txt`, `hello.ssml`].map(name => {
-//   return {
-//     name,
-//     localPath: path.resolve(path.join(__dirname, `../resources/${name}`)),
-//   };npm
-// });
 
 test.before(tools.checkCredentials);
 
