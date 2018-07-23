@@ -15,12 +15,6 @@
 
 'use strict';
 
-/*
-* TODO(developer): Uncomment the following lines before running the sample.
-*/
-//const text = 'Text to synthesize, eg. hello';
-//const outputFile = 'Local path to save audio file to, e.g. output.mp3';
-
 function synthesizeText(
   text,
   outputFile,
@@ -28,8 +22,7 @@ function synthesizeText(
   languageCode,
   ssmlGender
 ) {
-  //[START tts_synthesizeText]
-  //Synthesizes speech from the input string of text
+  //[START tts_synthesize_text_with_audio_profile]
 
   //Imports the Google Cloud client library
   const speech = require('@google-cloud/text-to-speech');
@@ -58,7 +51,7 @@ function synthesizeText(
       console.log(`Audio content written to file: ${outputFile}`);
     });
   });
-  // [END tts_synthesizeText]
+  // [END tts_synthesize_text_with_audio_profile]
 }
 
 require(`yargs`)
