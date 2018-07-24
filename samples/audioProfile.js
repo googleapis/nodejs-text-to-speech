@@ -24,11 +24,11 @@ function synthesizeText(
 ) {
   //[START tts_synthesize_text_with_audio_profile]
 
-  //Imports the Google Cloud client library
+  // Imports the Google Cloud client library
   const speech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
 
-  //Creates a client
+  // Creates a client
   const client = new speech.TextToSpeechClient();
 
   const request = {
