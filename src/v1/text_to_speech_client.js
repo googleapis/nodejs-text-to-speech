@@ -119,7 +119,7 @@ class TextToSpeechClient {
     // Iterate over each of the methods that the service provides
     // and create an API call method for each.
     const textToSpeechStubMethods = ['listVoices', 'synthesizeSpeech'];
-    for (const methodName of textToSpeechStubMethods) {
+    for (let methodName of textToSpeechStubMethods) {
       this._innerApiCalls[methodName] = gax.createApiCall(
         textToSpeechStub.then(
           stub =>
