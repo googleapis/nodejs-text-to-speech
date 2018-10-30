@@ -14,13 +14,22 @@
  */
 
 'use strict';
-
-function synthesizeText(text, outputFile) {
-  // [START tts_synthesize_text]
+function synthesizeSpeechAsync(request = {}) {
+  // Imports the Google Cloud client library
   const textToSpeech = require('@google-cloud/text-to-speech');
-  const fs = require('fs');
-
+  // Creates a client
   const client = new textToSpeech.TextToSpeechClient();
+  return new Promise((resolve, reject) => {
+    client.synthesizeSpeech(request, (err, response) => {
+      if (err) reject(err);
+      else resolve(response);
+    });
+  });
+}
+
+async function synthesizeText(text, outputFile) {
+  // [START tts_synthesize_text]
+  const fs = require('fs');
 
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -33,30 +42,16 @@ function synthesizeText(text, outputFile) {
     voice: {languageCode: 'en-US', ssmlGender: 'FEMALE'},
     audioConfig: {audioEncoding: 'MP3'},
   };
-
-  client.synthesizeSpeech(request, (err, response) => {
-    if (err) {
-      console.error('ERROR:', err);
-      return;
-    }
-
-    fs.writeFile(outputFile, response.audioContent, 'binary', err => {
-      if (err) {
-        console.error('ERROR:', err);
-        return;
-      }
-      console.log(`Audio content written to file: ${outputFile}`);
-    });
-  });
+  const response = await synthesizeSpeechAsync(request);
+  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_text]
 }
 
-function synthesizeSsml(ssml, outputFile) {
+async function synthesizeSsml(ssml, outputFile) {
   // [START tts_synthesize_ssml]
-  const textToSpeech = require('@google-cloud/text-to-speech');
-  const fs = require('fs');
 
-  const client = new textToSpeech.TextToSpeechClient();
+  const fs = require('fs');
 
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -70,29 +65,16 @@ function synthesizeSsml(ssml, outputFile) {
     audioConfig: {audioEncoding: 'MP3'},
   };
 
-  client.synthesizeSpeech(request, (err, response) => {
-    if (err) {
-      console.error('ERROR:', err);
-      return;
-    }
+  const response = await synthesizeSpeechAsync(request);
 
-    fs.writeFile(outputFile, response.audioContent, 'binary', err => {
-      if (err) {
-        console.error('ERROR:', err);
-        return;
-      }
-      console.log(`Audio content written to file: ${outputFile}`);
-    });
-  });
+  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_ssml]
 }
 
-function synthesizeTextFile(textFile, outputFile) {
+async function synthesizeTextFile(textFile, outputFile) {
   // [START tts_synthesize_text_file]
-  const textToSpeech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
-
-  const client = new textToSpeech.TextToSpeechClient();
 
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -106,29 +88,16 @@ function synthesizeTextFile(textFile, outputFile) {
     audioConfig: {audioEncoding: 'MP3'},
   };
 
-  client.synthesizeSpeech(request, (err, response) => {
-    if (err) {
-      console.error('ERROR:', err);
-      return;
-    }
+  const response = await synthesizeSpeechAsync(request);
 
-    fs.writeFile(outputFile, response.audioContent, 'binary', err => {
-      if (err) {
-        console.error('ERROR:', err);
-        return;
-      }
-      console.log(`Audio content written to file: ${outputFile}`);
-    });
-  });
+  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_text_file]
 }
 
-function synthesizeSsmlFile(ssmlFile, outputFile) {
+async function synthesizeSsmlFile(ssmlFile, outputFile) {
   // [START tts_synthesize_ssml_file]
-  const textToSpeech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
-
-  const client = new textToSpeech.TextToSpeechClient();
 
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -142,42 +111,46 @@ function synthesizeSsmlFile(ssmlFile, outputFile) {
     audioConfig: {audioEncoding: 'MP3'},
   };
 
-  client.synthesizeSpeech(request, (err, response) => {
-    if (err) {
-      console.error('ERROR:', err);
-      return;
-    }
+  const response = await synthesizeSpeechAsync(request);
 
-    fs.writeFile(outputFile, response.audioContent, 'binary', err => {
-      if (err) {
-        console.error('ERROR:', err);
-        return;
-      }
-      console.log(`Audio content written to file: ${outputFile}`);
-    });
-  });
+  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_ssml_file]
 }
 
 require(`yargs`) // eslint-disable-line
   .demand(1)
-  .command(`text <text>`, `Synthesizes audio file from text`, {}, opts =>
-    synthesizeText(opts.text, opts.outputFile)
+  .command(
+    `text <text>`,
+    `Synthesizes audio file from text`,
+    {},
+    async opts =>
+      await synthesizeText(opts.text, opts.outputFile).catch(console.error)
   )
-  .command(`ssml <ssml>`, `Synthesizes audio file from SSML`, {}, opts =>
-    synthesizeSsml(opts.ssml, opts.outputFile)
+  .command(
+    `ssml <ssml>`,
+    `Synthesizes audio file from SSML`,
+    {},
+    async opts =>
+      await synthesizeSsml(opts.ssml, opts.outputFile).catch(console.error)
   )
   .command(
     `text-file <textFile>`,
     `Synthesizes audio file from text in a file`,
     {},
-    opts => synthesizeTextFile(opts.textFile, opts.outputFile)
+    async opts =>
+      await synthesizeTextFile(opts.textFile, opts.outputFile).catch(
+        console.error
+      )
   )
   .command(
     `ssml-file <ssmlFile>`,
     `Synthesizes audio file from SSML in a file`,
     {},
-    opts => synthesizeSsmlFile(opts.ssmlFile, opts.outputFile)
+    async opts =>
+      await synthesizeSsmlFile(opts.ssmlFile, opts.outputFile).catch(
+        console.error
+      )
   )
   .options({
     outputFile: {

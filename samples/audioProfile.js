@@ -14,8 +14,20 @@
  */
 
 'use strict';
+function synthesizeSpeechAsync(request = {}) {
+  // Imports the Google Cloud client library
+  const textToSpeech = require('@google-cloud/text-to-speech');
+  // Creates a client
+  const client = new textToSpeech.TextToSpeechClient();
+  return new Promise((resolve, reject) => {
+    client.synthesizeSpeech(request, (err, response) => {
+      if (err) reject(err);
+      else resolve(response);
+    });
+  });
+}
 
-function synthesizeText(
+async function synthesizeText(
   text,
   outputFile,
   effectsProfileId,
@@ -23,13 +35,7 @@ function synthesizeText(
   ssmlGender
 ) {
   //[START tts_synthesize_text_audio_profile_beta]
-
-  // Imports the Google Cloud client library
-  const speech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
-
-  // Creates a client
-  const client = new speech.TextToSpeechClient();
 
   const request = {
     input: {text: text},
@@ -37,20 +43,9 @@ function synthesizeText(
     audioConfig: {audioEncoding: 'MP3', effectsProfileId: effectsProfileId},
   };
 
-  client.synthesizeSpeech(request, (err, response) => {
-    if (err) {
-      console.error(`ERROR:`, err);
-      return;
-    }
-
-    fs.writeFile(outputFile, response.audioContent, 'binary', err => {
-      if (err) {
-        console.error('ERROR:', err);
-        return;
-      }
-      console.log(`Audio content written to file: ${outputFile}`);
-    });
-  });
+  const response = await synthesizeSpeechAsync(request);
+  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_text_audio_profile_beta]
 }
 
@@ -60,14 +55,14 @@ require(`yargs`)
     `synthesize <text>`,
     `Detects speech in a local audio file.`,
     {},
-    opts =>
-      synthesizeText(
+    async opts =>
+      await synthesizeText(
         opts.text,
         opts.outputFile,
         opts.effectsProfileId,
         opts.languageCode,
         opts.ssmlGender
-      )
+      ).catch(console.error)
   )
   .options({
     text: {
