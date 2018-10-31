@@ -52,7 +52,7 @@ async function main() {
 
   const response = await synthesizeSpeech(request);
   // Write the binary audio content to a local file
-  await fs.writeFileSync('output.mp3', response.audioContent, 'binary');
+  fs.writeFileSync('output.mp3', response.audioContent, 'binary');
   console.log('Audio content written to file: output.mp3');
 }
 
