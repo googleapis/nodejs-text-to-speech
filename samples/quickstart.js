@@ -15,32 +15,20 @@
 
 'use strict';
 
-// [START tts_quickstart]
-const fs = require('fs');
-
-// Imports the Google Cloud client library
-const textToSpeech = require('@google-cloud/text-to-speech');
-
-// Creates a client
-const client = new textToSpeech.TextToSpeechClient();
-
-// The text to synthesize
-const text = 'Hello, world!';
-
-function synthesizeSpeech(request = {}) {
-  return new Promise((resolve, reject) => {
-    // Performs the Text-to-Speech request
-    client.synthesizeSpeech(request, (err, response) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(response);
-      }
-    });
-  });
-}
-
 async function main() {
+  // [START tts_quickstart]
+  const fs = require('fs');
+  const util = require('util');
+
+  // Imports the Google Cloud client library
+  const textToSpeech = require('@google-cloud/text-to-speech');
+
+  // Creates a client
+  const client = new textToSpeech.TextToSpeechClient();
+
+  // The text to synthesize
+  const text = 'Hello, world!';
+
   // Construct the request
   const request = {
     input: {text: text},
@@ -50,13 +38,13 @@ async function main() {
     audioConfig: {audioEncoding: 'MP3'},
   };
 
-  const response = await synthesizeSpeech(request);
+  // Performs the Text-to-Speech request
+  const [response] = await client.synthesizeSpeech(request);
   // Write the binary audio content to a local file
-  fs.writeFileSync('output.mp3', response.audioContent, 'binary');
+  const writeFile = util.promisify(fs.writeFile);
+  await writeFile('output.mp3', response.audioContent, 'binary');
   console.log('Audio content written to file: output.mp3');
+  // [END tts_quickstart]
 }
 
-main().catch(err => {
-  console.log(err);
-});
-// [END tts_quickstart]
+main().catch(console.error);

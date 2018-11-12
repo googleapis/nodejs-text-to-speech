@@ -14,22 +14,13 @@
  */
 
 'use strict';
-function synthesizeSpeechAsync(request = {}) {
-  // Imports the Google Cloud client library
-  const textToSpeech = require('@google-cloud/text-to-speech');
-  // Creates a client
-  const client = new textToSpeech.TextToSpeechClient();
-  return new Promise((resolve, reject) => {
-    client.synthesizeSpeech(request, (err, response) => {
-      if (err) reject(err);
-      else resolve(response);
-    });
-  });
-}
-
 async function synthesizeText(text, outputFile) {
   // [START tts_synthesize_text]
+  const textToSpeech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
+  const util = require('util');
+
+  const client = new textToSpeech.TextToSpeechClient();
 
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -42,16 +33,20 @@ async function synthesizeText(text, outputFile) {
     voice: {languageCode: 'en-US', ssmlGender: 'FEMALE'},
     audioConfig: {audioEncoding: 'MP3'},
   };
-  const response = await synthesizeSpeechAsync(request);
-  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  const [response] = await client.synthesizeSpeech(request);
+  const writeFile = util.promisify(fs.writeFile);
+  await writeFile(outputFile, response.audioContent, 'binary');
   console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_text]
 }
 
 async function synthesizeSsml(ssml, outputFile) {
   // [START tts_synthesize_ssml]
-
+  const textToSpeech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
+  const util = require('util');
+
+  const client = new textToSpeech.TextToSpeechClient();
 
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -65,16 +60,20 @@ async function synthesizeSsml(ssml, outputFile) {
     audioConfig: {audioEncoding: 'MP3'},
   };
 
-  const response = await synthesizeSpeechAsync(request);
-
-  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  const [response] = await client.synthesizeSpeech(request);
+  const writeFile = util.promisify(fs.writeFile);
+  await writeFile(outputFile, response.audioContent, 'binary');
   console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_ssml]
 }
 
 async function synthesizeTextFile(textFile, outputFile) {
   // [START tts_synthesize_text_file]
+  const textToSpeech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
+  const util = require('util');
+
+  const client = new textToSpeech.TextToSpeechClient();
 
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -88,16 +87,20 @@ async function synthesizeTextFile(textFile, outputFile) {
     audioConfig: {audioEncoding: 'MP3'},
   };
 
-  const response = await synthesizeSpeechAsync(request);
-
-  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  const [response] = await client.synthesizeSpeech(request);
+  const writeFile = util.promisify(fs.writeFile);
+  await writeFile(outputFile, response.audioContent, 'binary');
   console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_text_file]
 }
 
 async function synthesizeSsmlFile(ssmlFile, outputFile) {
   // [START tts_synthesize_ssml_file]
+  const textToSpeech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
+  const util = require('util');
+
+  const client = new textToSpeech.TextToSpeechClient();
 
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -111,9 +114,9 @@ async function synthesizeSsmlFile(ssmlFile, outputFile) {
     audioConfig: {audioEncoding: 'MP3'},
   };
 
-  const response = await synthesizeSpeechAsync(request);
-
-  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  const [response] = await client.synthesizeSpeech(request);
+  const writeFile = util.promisify(fs.writeFile);
+  await writeFile(outputFile, response.audioContent, 'binary');
   console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_ssml_file]
 }

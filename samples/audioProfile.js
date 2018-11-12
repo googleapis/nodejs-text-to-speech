@@ -14,19 +14,6 @@
  */
 
 'use strict';
-function synthesizeSpeechAsync(request = {}) {
-  // Imports the Google Cloud client library
-  const textToSpeech = require('@google-cloud/text-to-speech');
-  // Creates a client
-  const client = new textToSpeech.TextToSpeechClient();
-  return new Promise((resolve, reject) => {
-    client.synthesizeSpeech(request, (err, response) => {
-      if (err) reject(err);
-      else resolve(response);
-    });
-  });
-}
-
 async function synthesizeText(
   text,
   outputFile,
@@ -35,7 +22,14 @@ async function synthesizeText(
   ssmlGender
 ) {
   //[START tts_synthesize_text_audio_profile_beta]
+
+  // Imports the Google Cloud client library
+  const speech = require('@google-cloud/text-to-speech');
   const fs = require('fs');
+  const util = require('util');
+
+  // Creates a client
+  const client = new speech.TextToSpeechClient();
 
   const request = {
     input: {text: text},
@@ -43,8 +37,9 @@ async function synthesizeText(
     audioConfig: {audioEncoding: 'MP3', effectsProfileId: effectsProfileId},
   };
 
-  const response = await synthesizeSpeechAsync(request);
-  fs.writeFileSync(outputFile, response.audioContent, 'binary');
+  const [response] = await client.synthesizeSpeech(request);
+  const writeFile = util.promisify(fs.writeFile);
+  await writeFile(outputFile, response.audioContent, 'binary');
   console.log(`Audio content written to file: ${outputFile}`);
   // [END tts_synthesize_text_audio_profile_beta]
 }
