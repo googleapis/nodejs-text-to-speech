@@ -19,22 +19,22 @@
 
 const fs = require(`fs`);
 const path = require(`path`);
-const test = require(`ava`);
+const assert = require(`assert`);
 const tools = require(`@google-cloud/nodejs-repo-tools`);
 
 const outputFile = `output.mp3`;
 const cmd = `node quickstart.js`;
 const cwd = path.join(__dirname, `..`);
 
-test.before(tools.stubConsole);
-test.after.always(tools.restoreConsole);
-test.after.always(async () => {
+before(tools.stubConsole);
+after(async () => {
+  tools.restoreConsole();
   await fs.unlink(outputFile);
 });
 
-test(`should synthesize speech to local mp3 file`, async t => {
-  t.false(fs.existsSync(outputFile));
+it(`should synthesize speech to local mp3 file`, async () => {
+  assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(`${cmd}`, cwd);
-  t.true(output.includes(`Audio content written to file: output.mp3`));
-  t.true(fs.existsSync(outputFile));
+  assert.ok(output.includes(`Audio content written to file: output.mp3`));
+  assert.ok(fs.existsSync(outputFile));
 });

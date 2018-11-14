@@ -18,16 +18,16 @@
 'use strict';
 
 const path = require(`path`);
-const test = require(`ava`);
+const assert = require(`assert`);
 const tools = require(`@google-cloud/nodejs-repo-tools`);
 
 const cmd = `node listVoices.js`;
 const cwd = path.join(__dirname, `..`);
 
-test.before(tools.checkCredentials);
+before(tools.checkCredentials);
 
-test(`should list voices`, async t => {
+it(`should list voices`, async () => {
   const output = await tools.runAsync(`${cmd} list-voices`, cwd);
-  t.true(output.includes(`SSML Voice Gender: FEMALE`));
-  t.true(output.includes(`Natural Sample Rate Hertz: 24000`));
+  assert.ok(output.includes(`SSML Voice Gender: FEMALE`));
+  assert.ok(output.includes(`Natural Sample Rate Hertz: 24000`));
 });

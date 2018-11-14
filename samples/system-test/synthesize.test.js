@@ -19,7 +19,7 @@
 
 const fs = require(`fs`);
 const path = require(`path`);
-const test = require(`ava`);
+const assert = require(`assert`);
 const tools = require(`@google-cloud/nodejs-repo-tools`);
 
 const cmd = `node synthesize.js`;
@@ -34,48 +34,48 @@ const files = [`hello.txt`, `hello.ssml`].map(name => {
   };
 });
 
-test.before(tools.checkCredentials);
+before(tools.checkCredentials);
 
-test.after.always(async () => {
-  await fs.unlink(outputFile);
-});
+after(async () => 
+  await fs.unlink(outputFile)
+);
 
-test(`should synthesize audio from text`, async t => {
-  t.false(fs.existsSync(outputFile));
+it(`should synthesize audio from text`, async () => {
+  assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(
     `${cmd} text '${text}' --outputFile '${outputFile}'`,
     cwd
   );
-  t.true(output.includes(`Audio content written to file: ${outputFile}`));
-  t.true(fs.existsSync(outputFile));
+  assert.ok(output.includes(`Audio content written to file: ${outputFile}`));
+  assert.ok(fs.existsSync(outputFile));
 });
 
-test(`should synthesize audio from ssml`, async t => {
-  t.false(fs.existsSync(outputFile));
+it(`should synthesize audio from ssml`, async () => {
+  assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(
     `${cmd} ssml '${ssml}' --outputFile '${outputFile}'`,
     cwd
   );
-  t.true(output.includes(`Audio content written to file: ${outputFile}`));
-  t.true(fs.existsSync(outputFile));
+  assert.ok(output.includes(`Audio content written to file: ${outputFile}`));
+  assert.ok(fs.existsSync(outputFile));
 });
 
-test(`should synthesize audio from text file`, async t => {
-  t.false(fs.existsSync(outputFile));
+it(`should synthesize audio from text file`, async () => {
+  assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(
     `${cmd} text-file '${files[0].localPath}' --outputFile '${outputFile}'`,
     cwd
   );
-  t.true(output.includes(`Audio content written to file: ${outputFile}`));
-  t.true(fs.existsSync(outputFile));
+  assert.ok(output.includes(`Audio content written to file: ${outputFile}`));
+  assert.ok(fs.existsSync(outputFile));
 });
 
-test(`should synthesize audio from ssml file`, async t => {
-  t.false(fs.existsSync(outputFile));
+it(`should synthesize audio from ssml file`, async () => {
+  assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(
     `${cmd} ssml-file '${files[1].localPath}' --outputFile '${outputFile}'`,
     cwd
   );
-  t.true(output.includes(`Audio content written to file: ${outputFile}`));
-  t.true(fs.existsSync(outputFile));
+  assert.ok(output.includes(`Audio content written to file: ${outputFile}`));
+  assert.ok(fs.existsSync(outputFile));
 });
