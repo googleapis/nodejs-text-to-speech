@@ -17,14 +17,14 @@
 
 'use strict';
 
-const fs = require(`fs`);
-const path = require(`path`);
-const assert = require(`assert`);
-const tools = require(`@google-cloud/nodejs-repo-tools`);
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert');
+const tools = require('@google-cloud/nodejs-repo-tools');
 
-const outputFile = `output.mp3`;
-const cmd = `node quickstart.js`;
-const cwd = path.join(__dirname, `..`);
+const outputFile = 'output.mp3';
+const cmd = 'node quickstart.js';
+const cwd = path.join(__dirname, '..');
 
 before(tools.stubConsole);
 after(async () => {
@@ -32,9 +32,9 @@ after(async () => {
   await fs.unlink(outputFile);
 });
 
-it(`should synthesize speech to local mp3 file`, async () => {
+it('should synthesize speech to local mp3 file', async () => {
   assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(`${cmd}`, cwd);
-  assert.ok(output.includes(`Audio content written to file: output.mp3`));
+  assert.ok(output.includes('Audio content written to file: output.mp3'));
   assert.ok(fs.existsSync(outputFile));
 });
