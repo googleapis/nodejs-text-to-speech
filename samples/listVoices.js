@@ -37,19 +37,18 @@ async function listVoices() {
   // [END tts_list_voices]
 }
 
+async function main() {
 require(`yargs`) // eslint-disable-line
-  .demand(1)
-  .command(
-    `list-voices`,
-    `List supported voices.`,
-    {},
-    async () => await listVoices().catch(console.error)
-  )
-  .example(`node $0 list-voices`)
-  .wrap(120)
-  .recommendCommands()
-  .epilogue(
-    `For more information, see https://cloud.google.com/text-to-speech/docs`
-  )
-  .help()
-  .strict().argv;
+    .demand(1)
+    .command(`list-voices`, `List supported voices.`, {}, () => listVoices())
+    .example(`node $0 list-voices`)
+    .wrap(120)
+    .recommendCommands()
+    .epilogue(
+      `For more information, see https://cloud.google.com/text-to-speech/docs`
+    )
+    .help()
+    .strict().argv;
+}
+
+main().catch(console.error);

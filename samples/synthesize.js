@@ -121,57 +121,47 @@ async function synthesizeSsmlFile(ssmlFile, outputFile) {
   // [END tts_synthesize_ssml_file]
 }
 
+async function main() {
 require(`yargs`) // eslint-disable-line
-  .demand(1)
-  .command(
-    `text <text>`,
-    `Synthesizes audio file from text`,
-    {},
-    async opts =>
-      await synthesizeText(opts.text, opts.outputFile).catch(console.error)
-  )
-  .command(
-    `ssml <ssml>`,
-    `Synthesizes audio file from SSML`,
-    {},
-    async opts =>
-      await synthesizeSsml(opts.ssml, opts.outputFile).catch(console.error)
-  )
-  .command(
-    `text-file <textFile>`,
-    `Synthesizes audio file from text in a file`,
-    {},
-    async opts =>
-      await synthesizeTextFile(opts.textFile, opts.outputFile).catch(
-        console.error
-      )
-  )
-  .command(
-    `ssml-file <ssmlFile>`,
-    `Synthesizes audio file from SSML in a file`,
-    {},
-    async opts =>
-      await synthesizeSsmlFile(opts.ssmlFile, opts.outputFile).catch(
-        console.error
-      )
-  )
-  .options({
-    outputFile: {
-      alias: 'o',
-      default: 'output.mp3',
-      global: true,
-      requiresArg: true,
-      type: 'string',
-    },
-  })
-  .example(`node $0 text "hello" -o hello.mp3`)
-  .example(`node $0 ssml "<speak>Hello there.</speak>" -o hello.mp3`)
-  .example(`node $0 text-file resources/hello.txt -o output.mp3`)
-  .example(`node $0 ssml-file resources/hello.ssml -o output.mp3`)
-  .wrap(120)
-  .recommendCommands()
-  .epilogue(
-    `For more information, see https://cloud.google.com/text-to-speech/docs`
-  )
-  .help()
-  .strict().argv;
+    .demand(1)
+    .command(`text <text>`, `Synthesizes audio file from text`, {}, opts =>
+      synthesizeText(opts.text, opts.outputFile)
+    )
+    .command(`ssml <ssml>`, `Synthesizes audio file from SSML`, {}, opts =>
+      synthesizeSsml(opts.ssml, opts.outputFile)
+    )
+    .command(
+      `text-file <textFile>`,
+      `Synthesizes audio file from text in a file`,
+      {},
+      opts => synthesizeTextFile(opts.textFile, opts.outputFile)
+    )
+    .command(
+      `ssml-file <ssmlFile>`,
+      `Synthesizes audio file from SSML in a file`,
+      {},
+      opts => synthesizeSsmlFile(opts.ssmlFile, opts.outputFile)
+    )
+    .options({
+      outputFile: {
+        alias: 'o',
+        default: 'output.mp3',
+        global: true,
+        requiresArg: true,
+        type: 'string',
+      },
+    })
+    .example(`node $0 text "hello" -o hello.mp3`)
+    .example(`node $0 ssml "<speak>Hello there.</speak>" -o hello.mp3`)
+    .example(`node $0 text-file resources/hello.txt -o output.mp3`)
+    .example(`node $0 ssml-file resources/hello.ssml -o output.mp3`)
+    .wrap(120)
+    .recommendCommands()
+    .epilogue(
+      `For more information, see https://cloud.google.com/text-to-speech/docs`
+    )
+    .help()
+    .strict().argv;
+}
+
+main().catch(console.error);
