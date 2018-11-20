@@ -36,7 +36,7 @@ const files = ['hello.txt', 'hello.ssml'].map(name => {
 
 before(tools.checkCredentials);
 
-after(async () => 
+afterEach(async () =>
   await fs.unlink(outputFile)
 );
 
