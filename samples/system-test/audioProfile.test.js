@@ -38,7 +38,7 @@ after(async () => {
       fs.unlink(outputFile);
     } catch(err) {}
   }
-  await Promise.all([outputFile1, outputFile2, outputFile3, outputFile4].map(unlink))
+  await Promise.all([outputFile1, outputFile2, outputFile3, outputFile4].map(unlink));
 });
 
 it('Should synthesize Speech for Telephone Audio Profile', async () => {
