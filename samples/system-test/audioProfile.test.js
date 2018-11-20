@@ -33,10 +33,29 @@ const outputFile4 = 'watchAudioTest.mp3';
 before(tools.checkCredentials);
 
 after(async () => {
-  await fs.unlink(outputFile1);
-  await fs.unlink(outputFile2);
-  await fs.unlink(outputFile3);
-  await fs.unlink(outputFile4);
+  try {
+    await fs.unlink(outputFile1);
+  } catch(err) {
+    // Ignore error
+  }
+
+  try {
+    await fs.unlink(outputFile2);
+  } catch(err) {
+    // Ignore error
+  }
+
+  try {
+    await fs.unlink(outputFile3);
+  } catch(err) {
+    // Ignore error
+  }
+
+  try {
+    await fs.unlink(outputFile4);
+  } catch(err) {
+    // Ignore error
+  }
 });
 
 it('Should synthesize Speech for Telephone Audio Profile', async () => {

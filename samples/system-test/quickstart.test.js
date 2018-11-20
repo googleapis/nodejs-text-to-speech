@@ -29,7 +29,11 @@ const cwd = path.join(__dirname, '..');
 before(tools.stubConsole);
 after(async () => {
   tools.restoreConsole();
-  await fs.unlink(outputFile);
+  try {
+    await fs.unlink(outputFile);
+  } catch(err) {
+    // Ignore error
+  }
 });
 
 it('should synthesize speech to local mp3 file', async () => {

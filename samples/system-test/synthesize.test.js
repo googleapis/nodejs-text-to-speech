@@ -36,9 +36,13 @@ const files = ['hello.txt', 'hello.ssml'].map(name => {
 
 before(tools.checkCredentials);
 
-afterEach(async () =>
-  await fs.unlink(outputFile)
-);
+afterEach(async () => {
+  try {
+    await fs.unlink(outputFile)
+  } catch(err) {
+  // Ignore error
+  }
+});
 
 it('should synthesize audio from text', async () => {
   assert.strictEqual(fs.existsSync(outputFile), false);
