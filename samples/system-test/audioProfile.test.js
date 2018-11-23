@@ -32,19 +32,22 @@ const outputFile4 = 'watchAudioTest.mp3';
 
 before(tools.checkCredentials);
 
-after(async () => {
-  function unlink(outputFile){
+after(() => {
+  function unlink(outputFile) {
     try {
-      fs.unlink(outputFile);
-    } catch(err) {}
+      fs.unlinkSync(outputFile);
+    } catch(err) {
+    // Ignore error
+    }
   }
-  await Promise.all([outputFile1, outputFile2, outputFile3, outputFile4].map(unlink));
+
+  [outputFile1, outputFile2, outputFile3, outputFile4].map(unlink);
 });
 
 it('Should synthesize Speech for Telephone Audio Profile', async () => {
   assert.strictEqual(fs.existsSync(outputFile1), false);
   const output = await tools.runAsync(
-    `${cmd} synthesize '${text}' -f '${outputFile1}' -e telephony-class-application`,
+    `${cmd} synthesize '${text}' -f ${outputFile1} -e telephony-class-application`,
     cwd
   );
   assert.ok(output.includes(`Audio content written to file: ${outputFile1}`));
@@ -54,7 +57,7 @@ it('Should synthesize Speech for Telephone Audio Profile', async () => {
 it('Should synthesize Speech for Home Theatre Audio Profile', async () => {
   assert.strictEqual(fs.existsSync(outputFile2), false);
   const output = await tools.runAsync(
-    `${cmd} synthesize '${text}' -f '${outputFile2}' -e large-home-entertainment-class-device`,
+    `${cmd} synthesize '${text}' -f ${outputFile2} -e large-home-entertainment-class-device`,
     cwd
   );
   assert.ok(output.includes(`Audio content written to file: ${outputFile2}`));
@@ -64,7 +67,7 @@ it('Should synthesize Speech for Home Theatre Audio Profile', async () => {
 it('Should synthesize Speech for Car Audio Audio Profile', async () => {
   assert.strictEqual(fs.existsSync(outputFile3), false);
   const output = await tools.runAsync(
-    `${cmd} synthesize '${text}' -f '${outputFile3}' -e large-automotive-class-device`,
+    `${cmd} synthesize '${text}' -f ${outputFile3} -e large-automotive-class-device`,
     cwd
   );
   assert.ok(output.includes(`Audio content written to file: ${outputFile3}`));
@@ -74,7 +77,7 @@ it('Should synthesize Speech for Car Audio Audio Profile', async () => {
 it('should synthesize Speech for Watch Audio Profile', async () => {
   assert.strictEqual(fs.existsSync(outputFile4), false);
   const output = await tools.runAsync(
-    `${cmd} synthesize '${text}' -f '${outputFile4}' -e wearable-class-device`,
+    `${cmd} synthesize '${text}' -f ${outputFile4} -e wearable-class-device`,
     cwd
   );
   assert.ok(output.includes(`Audio content written to file: ${outputFile4}`));

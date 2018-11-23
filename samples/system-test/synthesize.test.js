@@ -36,9 +36,9 @@ const files = ['hello.txt', 'hello.ssml'].map(name => {
 
 before(tools.checkCredentials);
 
-afterEach(async () => {
+afterEach(() => {
   try {
-    await fs.unlink(outputFile)
+    fs.unlinkSync(outputFile);
   } catch(err) {
   // Ignore error
   }
@@ -47,7 +47,7 @@ afterEach(async () => {
 it('should synthesize audio from text', async () => {
   assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(
-    `${cmd} text '${text}' --outputFile '${outputFile}'`,
+    `${cmd} text '${text}' --outputFile ${outputFile}`,
     cwd
   );
   assert.ok(output.includes(`Audio content written to file: ${outputFile}`));
@@ -57,7 +57,7 @@ it('should synthesize audio from text', async () => {
 it('should synthesize audio from ssml', async () => {
   assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(
-    `${cmd} ssml '${ssml}' --outputFile '${outputFile}'`,
+    `${cmd} ssml "${ssml}" --outputFile ${outputFile}`,
     cwd
   );
   assert.ok(output.includes(`Audio content written to file: ${outputFile}`));
@@ -67,7 +67,7 @@ it('should synthesize audio from ssml', async () => {
 it('should synthesize audio from text file', async () => {
   assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(
-    `${cmd} text-file '${files[0].localPath}' --outputFile '${outputFile}'`,
+    `${cmd} text-file ${files[0].localPath} --outputFile ${outputFile}`,
     cwd
   );
   assert.ok(output.includes(`Audio content written to file: ${outputFile}`));
@@ -77,7 +77,7 @@ it('should synthesize audio from text file', async () => {
 it('should synthesize audio from ssml file', async () => {
   assert.strictEqual(fs.existsSync(outputFile), false);
   const output = await tools.runAsync(
-    `${cmd} ssml-file '${files[1].localPath}' --outputFile '${outputFile}'`,
+    `${cmd} ssml-file ${files[1].localPath} --outputFile ${outputFile}`,
     cwd
   );
   assert.ok(output.includes(`Audio content written to file: ${outputFile}`));

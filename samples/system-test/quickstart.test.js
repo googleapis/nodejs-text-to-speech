@@ -27,10 +27,10 @@ const cmd = 'node quickstart.js';
 const cwd = path.join(__dirname, '..');
 
 before(tools.stubConsole);
-after(async () => {
+after(() => {
   tools.restoreConsole();
   try {
-    await fs.unlink(outputFile);
+    fs.unlinkSync(outputFile);
   } catch(err) {
     // Ignore error
   }
