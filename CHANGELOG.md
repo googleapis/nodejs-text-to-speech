@@ -4,6 +4,9 @@
 
 [1]: https://www.npmjs.com/package/@google-cloud/text-to-speech?activeTab=versions
 
+## v0.3.1
+- fix(docs): 404 namespaces merge to 0.3.x (#150)
+
 ## v0.3.0
 
 ### Implementation Changes
