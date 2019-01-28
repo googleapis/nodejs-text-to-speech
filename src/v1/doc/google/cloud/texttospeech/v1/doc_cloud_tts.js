@@ -208,8 +208,7 @@ const VoiceSelectionParams = {
  *   Effects are applied on top of each other in the order they are given.
  *   See
  *
- *   [audio-profiles](https:
- *   //cloud.google.com/text-to-speech/docs/audio-profiles)
+ *   [audio-profiles](https://cloud.google.com/text-to-speech/docs/audio-profiles)
  *   for current supported profile ids.
  *
  * @typedef AudioConfig
