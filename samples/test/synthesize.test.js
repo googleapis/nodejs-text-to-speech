@@ -42,9 +42,7 @@ describe('synthesize', () => {
 
   it('should synthesize audio from text', async () => {
     assert.strictEqual(fs.existsSync(outputFile), false);
-    const output = execSync(
-      `${cmd} text '${text}' --outputFile ${outputFile}`
-    );
+    const output = execSync(`${cmd} text '${text}' --outputFile ${outputFile}`);
     assert.match(
       output,
       new RegExp(`Audio content written to file: ${outputFile}`)
@@ -54,9 +52,7 @@ describe('synthesize', () => {
 
   it('should synthesize audio from ssml', async () => {
     assert.strictEqual(fs.existsSync(outputFile), false);
-    const output = execSync(
-      `${cmd} ssml "${ssml}" --outputFile ${outputFile}`
-    );
+    const output = execSync(`${cmd} ssml "${ssml}" --outputFile ${outputFile}`);
     assert.match(
       output,
       new RegExp(`Audio content written to file: ${outputFile}`)
