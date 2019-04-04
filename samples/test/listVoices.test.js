@@ -16,7 +16,7 @@
 'use strict';
 
 const {assert} = require('chai');
-const cp = require('child_process');
+const {execSync} = require('child_process');
 
 const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
 
