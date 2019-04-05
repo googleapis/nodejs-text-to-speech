@@ -19,7 +19,7 @@ const fs = require('fs');
 const {assert} = require('chai');
 const cp = require('child_process');
 
-const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
+const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
 
 const cmd = 'node audioProfile.js';
 const text = 'Hello Everybody!  This is an Audio Profile Optimized Sound Byte.';

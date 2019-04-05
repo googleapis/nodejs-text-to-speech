@@ -20,7 +20,7 @@ const path = require('path');
 const {assert} = require('chai');
 const cp = require('child_process');
 
-const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
+const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
 
 const cmd = 'node synthesize.js';
 const text = 'Hello there.';
