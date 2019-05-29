@@ -1,6 +1,6 @@
 {
   "name": "text-to-speech",
-  "name_pretty": "Google Cloud Text-to-Speech API",
+  "name_pretty": "Google Cloud Text-to-Speech",
   "product_documentation": "https://cloud.google.com/text-to-speech",
   "client_documentation": "https://cloud.google.com/nodejs/docs/reference/text-to-speech/latest/",
   "issue_tracker": "https://issuetracker.google.com/savedsearches/5235428",

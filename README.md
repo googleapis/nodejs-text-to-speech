@@ -2,7 +2,7 @@
 [//]: # "To regenerate it, use `python -m synthtool`."
 <img src="https://avatars2.githubusercontent.com/u/2810941?v=3&s=96" alt="Google Cloud Platform logo" title="Google Cloud Platform" align="right" height="96" width="96"/>
 
-# [Google Cloud Text-to-Speech API: Node.js Client](https://github.com/googleapis/nodejs-text-to-speech)
+# [Google Cloud Text-to-Speech: Node.js Client](https://github.com/googleapis/nodejs-text-to-speech)
 
 [![release level](https://img.shields.io/badge/release%20level-alpha-orange.svg?style=flat)](https://cloud.google.com/terms/launch-stages)
 [![npm version](https://img.shields.io/npm/v/@google-cloud/text-to-speech.svg)](https://www.npmjs.org/package/@google-cloud/text-to-speech)
@@ -14,8 +14,8 @@
 Cloud Text-to-Speech API client for Node.js
 
 
-* [Google Cloud Text-to-Speech API Node.js Client API Reference][client-docs]
-* [Google Cloud Text-to-Speech API Documentation][product-docs]
+* [Google Cloud Text-to-Speech Node.js Client API Reference][client-docs]
+* [Google Cloud Text-to-Speech Documentation][product-docs]
 * [github.com/googleapis/nodejs-text-to-speech](https://github.com/googleapis/nodejs-text-to-speech)
 
 Read more about the client libraries for Cloud APIs, including the older
@@ -41,7 +41,7 @@ Google APIs Client Libraries, in [Client Libraries Explained][explained].
 
 1.  [Select or create a Cloud Platform project][projects].
 1.  [Enable billing for your project][billing].
-1.  [Enable the Google Cloud Text-to-Speech API API][enable_api].
+1.  [Enable the Google Cloud Text-to-Speech API][enable_api].
 1.  [Set up authentication with a service account][auth] so you can access the
     API from your local workstation.
 
@@ -103,7 +103,7 @@ has instructions for running the samples.
 
 
 
-The [Google Cloud Text-to-Speech API Node.js Client API Reference][client-docs] documentation
+The [Google Cloud Text-to-Speech Node.js Client API Reference][client-docs] documentation
 also contains samples.
 
 ## Versioning
