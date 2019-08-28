@@ -25,7 +25,6 @@ const escape = require('escape-html');
 const util = require('util');
 // [END tts_ssml_address_imports]
 
-
 // [START tts_ssml_address_audio]
 /**
  * Generates synthetic audio from a String of SSML text.
@@ -65,7 +64,6 @@ async function ssmlToAudio(ssmlText, outFile) {
 }
 // [END tts_ssml_address_audio]
 
-
 // [START tts_ssml_address_ssml]
 /**
  * Generates SSML text from plaintext.
@@ -83,12 +81,12 @@ async function ssmlToAudio(ssmlText, outFile) {
  *
  */
 function textToSsml(inputFile) {
-
   // Read input file
   try {
-    var rawLines = fs.readFileSync(inputFile, 'utf8');
-  } catch(e) {
+    const rawLines = fs.readFileSync(inputFile, 'utf8');
+  } catch(.) {
     console.log('Error:', e.stack);
+    return;
   }
 
   // Replace special characters with HTML Ampersand Character Codes
@@ -99,7 +97,7 @@ function textToSsml(inputFile) {
   // Convert plaintext to SSML
   // Tag SSML so that there is a 2 second pause between each address
   var expandedNewline = escapedLines.replace(/\n/g,'\n<break time="2s"/>');
-  var ssml = '<speak>' + expandedNewline + '</speak>';
+  const ssml = '<speak>' + expandedNewline + '</speak>';
 
   // Return the concatenated String of SSML
   return ssml;
@@ -113,7 +111,7 @@ async function main() {
   const inputFile = 'resources/example.txt';
   const outFile = 'resources/example.mp3';
   
-  var ssml = textToSsml(inputFile);
+  const ssml = textToSsml(inputFile);
   ssmlToAudio(ssml, outFile);
 }
 // [END tts_ssml_address_test]
