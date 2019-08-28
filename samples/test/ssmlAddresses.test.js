@@ -16,28 +16,38 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 const {assert} = require('chai');
 const cp = require('child_process');
 
+var ssmlAddresses = require('./../ssmlAddresses');
+
 const cmd = 'node ssmlAddresses.js';
+const inputFile = 'resources/example.txt';
+const outputFile = 'resources/example.mp3';
 
 const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
 
-const outputFile = 'output.mp3';
-
 describe('ssmlAddresses', () => {
-  after(() => {
+
+  it('input text tagged with SSML', () => {
     try {
-      fs.unlinkSync(outputFile);
-    } catch (err) {
-      // Ignore error
+      var expected_ssml = fs.readFileSync('resources/example.ssml', 'utf8');
+    } catch(e) {
+      console.log('Error:', e.stack);
     }
+
+    var ssml = ssmlAddresses.textToSsml(inputFile);
+    
+    assert.strictEqual(expected_ssml, ssml);
   });
 
-  it('should synthesize speech to local mp3 file', async () => {
+  it('synthesize speech to local mp3 file', async () => {
+    // test will fail if a 'resources/example.mp3' file exists
     assert.strictEqual(fs.existsSync(outputFile), false);
-    const stdout = execSync('node ssmlAddresses');
-    assert.match(stdout, /Audio content written to file output.mp3/);
-    assert.ok(fs.existsSync(outputFile));
+    const output = execSync(`${cmd}`);
+    assert.match(output, /Audio content written to file resources\/example.mp3/);
+    assert.strictEqual(fs.existsSync(outputFile), true);
+    fs.unlinkSync(outputFile)
   });
 });

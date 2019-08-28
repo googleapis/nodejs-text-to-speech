@@ -15,7 +15,7 @@
 
 'use strict';
 
-// [START tts_quickstart]
+// [START tts_ssml_address_imports]
 // Imports the Google Cloud client library
 const textToSpeech = require('@google-cloud/text-to-speech');
 
@@ -23,20 +23,35 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 const fs = require('fs');
 const escape = require('escape-html');
 const util = require('util');
+// [END tts_ssml_address_imports]
 
 
+// [START tts_ssml_address_audio]
+/**
+ * Generates synthetic audio from a String of SSML text.
+ *
+ * Given a string of SSML text and an output file name, this function
+ * calls the Text-to-Speech API. The API returns a synthetic audio
+ * version of the text, formatted according to the SSML commands. This
+ * function saves the synthetic audio to the designated output file.
+ *
+ * ARGS
+ * ssmlText: String of tagged SSML text
+ * outfile: String name of file under which to save audio output
+ * RETURNS
+ * nothing
+ *
+ */
 async function ssmlToAudio(ssmlText, outFile) {
   // Creates a client
   const client = new textToSpeech.TextToSpeechClient();
 
-  // The text to synthesize
-  const text = 'Hello, world!';
-
-  // Construct the request
+  // Constructs the request
   const request = {
-    input: {text: text},
+    // Select the text to synthesize
+    input: {ssml: ssmlText},
     // Select the language and SSML Voice Gender (optional)
-    voice: {languageCode: 'en-US', ssmlGender: 'NEUTRAL'},
+    voice: {languageCode: 'en-US', ssmlGender: 'MALE'},
     // Select the type of audio encoding
     audioConfig: {audioEncoding: 'MP3'},
   };
@@ -45,11 +60,29 @@ async function ssmlToAudio(ssmlText, outFile) {
   const [response] = await client.synthesizeSpeech(request);
   // Write the binary audio content to a local file
   const writeFile = util.promisify(fs.writeFile);
-  await writeFile('output.mp3', response.audioContent, 'binary');
-  console.log('Audio content written to file: output.mp3');
+  await writeFile(outFile, response.audioContent, 'binary');
+  console.log('Audio content written to file ' + outFile);
 }
+// [END tts_ssml_address_audio]
 
-async function textToSsml(inputFile) {
+
+// [START tts_ssml_address_ssml]
+/**
+ * Generates SSML text from plaintext.
+ *
+ * Given an input filename, this function converts the contents of the input text file
+ * into a String of tagged SSML text. This function formats the SSML String so that,
+ * when synthesized, the synthetic audio will pause for two seconds between each line
+ * of the text file. This function also handles special text characters which might
+ * interfere with SSML commands.
+ *
+ * ARGS
+ * inputfile: String name of plaintext file
+ * RETURNS
+ * a String of SSML text based on plaintext input
+ *
+ */
+function textToSsml(inputFile) {
 
   // Read input file
   try {
@@ -71,14 +104,20 @@ async function textToSsml(inputFile) {
   // Return the concatenated String of SSML
   return ssml;
 }
+// [END tts_ssml_address_ssml]
 
 
+// [START tts_ssml_address_test]
 async function main() {
-  const inputFile = 'sandbox.txt';
-  const outFile = 'example.mp3';
+  // test example address file
+  const inputFile = 'resources/example.txt';
+  const outFile = 'resources/example.mp3';
+  
   var ssml = textToSsml(inputFile);
-  console.log(ssml);
   ssmlToAudio(ssml, outFile);
 }
-// [END tts_quickstart]
+// [END tts_ssml_address_test]
 main().catch(console.error);
+
+// export for unit testing
+module.exports.textToSsml = textToSsml;
