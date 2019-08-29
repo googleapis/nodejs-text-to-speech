@@ -17,15 +17,12 @@
 
 const fs = require('fs');
 const {assert} = require('chai');
-const cp = require('child_process');
 
 const ssmlAddresses = require('./../ssmlAddresses');
 
-const cmd = 'node ssmlAddresses.js';
+//const cmd = 'node ssmlAddresses.js';
 const inputFile = 'resources/example.txt';
-const outputFile = 'resources/example.mp3';
-
-const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
+const outputFile = 'test-example.mp3';
 
 describe('ssmlAddresses', () => {
   it('input text tagged with SSML', () => {
@@ -42,14 +39,18 @@ describe('ssmlAddresses', () => {
   });
 
   it('synthesize speech to local mp3 file', async () => {
-    // test will fail if a 'resources/example.mp3' file exists
+    let ssml = '';
+    try {
+      ssml = fs.readFileSync('resources/example.ssml', 'utf8');
+    } catch (e) {
+      console.log('Error:', e.stack);
+      return;
+    }
+
     assert.strictEqual(fs.existsSync(outputFile), false);
-    const output = execSync(`${cmd}`);
-    assert.match(
-      output,
-      /Audio content written to file resources\/example.mp3/
-    );
+    await ssmlAddresses.ssmlToAudio(ssml, outputFile);
     assert.strictEqual(fs.existsSync(outputFile), true);
     fs.unlinkSync(outputFile);
+    assert.strictEqual(fs.existsSync(outputFile), false);
   });
 });

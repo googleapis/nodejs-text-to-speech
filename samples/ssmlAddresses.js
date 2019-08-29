@@ -119,7 +119,10 @@ async function main() {
   ssmlToAudio(ssml, outFile);
 }
 // [END tts_ssml_address_test]
-main().catch(console.error);
+if (require.main === module) {
+  main().catch(console.error);
+}
 
 // export for unit testing
 module.exports.textToSsml = textToSsml;
+module.exports.ssmlToAudio = ssmlToAudio;
