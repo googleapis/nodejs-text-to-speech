@@ -29,10 +29,10 @@ const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
 
 describe('ssmlAddresses', () => {
   it('input text tagged with SSML', () => {
-    var expected_ssml = ''
+    let expected_ssml = '';
     try {
       expected_ssml = fs.readFileSync('resources/example.ssml', 'utf8');
-    } catch(e)  {
+    } catch (e) {
       console.log('Error:', e.stack);
       return;
     }
@@ -48,8 +48,10 @@ describe('ssmlAddresses', () => {
     assert.match(
       output,
       /Audio content written to file resources\/example.mp3/
-      );
+    );
     assert.strictEqual(fs.existsSync(outputFile), true);
-    fs.unlinkSync(outputFile);
+    fs.unlink(outputFile, function(err) {
+      if (err) throw err;
+    });
   });
 });

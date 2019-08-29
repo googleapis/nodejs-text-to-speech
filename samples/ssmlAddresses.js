@@ -21,7 +21,7 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 
 // Import other required libraries
 const fs = require('fs');
-const escape = require('escape-html');
+//const escape = require('escape-html');
 const util = require('util');
 // [END tts_ssml_address_imports]
 
@@ -81,11 +81,11 @@ async function ssmlToAudio(ssmlText, outFile) {
  *
  */
 function textToSsml(inputFile) {
-  var rawLines = ''
+  let rawLines = '';
   // Read input file
   try {
     rawLines = fs.readFileSync(inputFile, 'utf8');
-  }  catch(e) {
+  } catch (e) {
     console.log('Error:', e.stack);
     return;
   }
@@ -93,11 +93,15 @@ function textToSsml(inputFile) {
   // Replace special characters with HTML Ampersand Character Codes
   // These codes prevent the API from confusing text with SSML tags
   // For example, '<' --> '&lt;' and '&' --> '&amp;'
-  var escapedLines = escape(rawLines);
+  let escapedLines = rawLines;
+  escapedLines = escapedLines.replace(/&/g, '&amp;');
+  escapedLines = escapedLines.replace(/"/g, '&quot;');
+  escapedLines = escapedLines.replace(/</g, '&lt;');
+  escapedLines = escapedLines.replace(/>/g, '&gt;');
 
   // Convert plaintext to SSML
   // Tag SSML so that there is a 2 second pause between each address
-  var expandedNewline = escapedLines.replace(/\n/g,'\n<break time="2s"/>');
+  const expandedNewline = escapedLines.replace(/\n/g, '\n<break time="2s"/>');
   const ssml = '<speak>' + expandedNewline + '</speak>';
 
   // Return the concatenated String of SSML
@@ -105,13 +109,12 @@ function textToSsml(inputFile) {
 }
 // [END tts_ssml_address_ssml]
 
-
 // [START tts_ssml_address_test]
 async function main() {
   // test example address file
   const inputFile = 'resources/example.txt';
   const outFile = 'resources/example.mp3';
-  
+
   const ssml = textToSsml(inputFile);
   ssmlToAudio(ssml, outFile);
 }
