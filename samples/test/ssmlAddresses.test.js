@@ -29,8 +29,9 @@ const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
 
 describe('ssmlAddresses', () => {
   it('input text tagged with SSML', () => {
+    var expected_ssml = ''
     try {
-      const expected_ssml = fs.readFileSync('resources/example.ssml', 'utf8');
+      expected_ssml = fs.readFileSync('resources/example.ssml', 'utf8');
     } catch(e)  {
       console.log('Error:', e.stack);
       return;

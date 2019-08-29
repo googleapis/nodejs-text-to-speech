@@ -81,10 +81,11 @@ async function ssmlToAudio(ssmlText, outFile) {
  *
  */
 function textToSsml(inputFile) {
+  var rawLines = ''
   // Read input file
   try {
-    const rawLines = fs.readFileSync(inputFile, 'utf8');
-  } catch(.) {
+    rawLines = fs.readFileSync(inputFile, 'utf8');
+  }  catch(e) {
     console.log('Error:', e.stack);
     return;
   }
