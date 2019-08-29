@@ -50,8 +50,6 @@ describe('ssmlAddresses', () => {
       /Audio content written to file resources\/example.mp3/
     );
     assert.strictEqual(fs.existsSync(outputFile), true);
-    fs.unlink(outputFile, function(err) {
-      if (err) throw err;
-    });
+    fs.unlinkSync(outputFile);
   });
 });
