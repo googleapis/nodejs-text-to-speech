@@ -110,19 +110,13 @@ function textToSsml(inputFile) {
 // [END tts_ssml_address_ssml]
 
 // [START tts_ssml_address_test]
-async function main() {
-  // test example address file
-  const inputFile = 'resources/example.txt';
-  const outFile = 'resources/example.mp3';
-
-  const ssml = textToSsml(inputFile);
+function main(
+  inFile = 'resources/example.txt',
+  outFile = 'resources/example.mp3'
+) {
+  const ssml = textToSsml(inFile);
   ssmlToAudio(ssml, outFile);
 }
 // [END tts_ssml_address_test]
-if (require.main === module) {
-  main().catch(console.error);
-}
 
-// export for unit testing
-module.exports.textToSsml = textToSsml;
-module.exports.ssmlToAudio = ssmlToAudio;
+main(...process.argv.slice(2));

@@ -17,40 +17,36 @@
 
 const fs = require('fs');
 const {assert} = require('chai');
+const cp = require('child_process');
 
-const ssmlAddresses = require('./../ssmlAddresses');
+const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
 
-//const cmd = 'node ssmlAddresses.js';
-const inputFile = 'resources/example.txt';
-const outputFile = 'test-example.mp3';
+const cmd = 'node ssmlAddresses.js';
+const outputFile = 'resources/example.mp3';
 
 describe('ssmlAddresses', () => {
-  it('input text tagged with SSML', () => {
-    let expected_ssml = '';
+  // delete 'resources/example.mp3' file if it already exists
+  before(function() {
     try {
-      expected_ssml = fs.readFileSync('resources/example.ssml', 'utf8');
+      fs.unlinkSync(outputFile);
     } catch (e) {
-      console.log('Error:', e.stack);
-      return;
+      // don't throw an exception
     }
+  });
 
-    const ssml = ssmlAddresses.textToSsml(inputFile);
-    assert.strictEqual(expected_ssml, ssml);
+  // delete 'resources/example.mp3' file
+  after(function() {
+    fs.unlinkSync(outputFile);
+    assert.strictEqual(fs.existsSync(outputFile), false);
   });
 
   it('synthesize speech to local mp3 file', async () => {
-    let ssml = '';
-    try {
-      ssml = fs.readFileSync('resources/example.ssml', 'utf8');
-    } catch (e) {
-      console.log('Error:', e.stack);
-      return;
-    }
-
     assert.strictEqual(fs.existsSync(outputFile), false);
-    await ssmlAddresses.ssmlToAudio(ssml, outputFile);
+    const stdout = execSync(`${cmd}`);
+    assert.match(
+      stdout,
+      /Audio content written to file resources\/example.mp3/
+    );
     assert.strictEqual(fs.existsSync(outputFile), true);
-    fs.unlinkSync(outputFile);
-    assert.strictEqual(fs.existsSync(outputFile), false);
   });
 });
