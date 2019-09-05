@@ -109,14 +109,14 @@ function textToSsml(inputFile) {
 }
 // [END tts_ssml_address_ssml]
 
-// [START tts_ssml_address_test]
 function main(
   inFile = 'resources/example.txt',
   outFile = 'resources/example.mp3'
 ) {
+  // [START tts_ssml_address_test]
   const ssml = textToSsml(inFile);
   ssmlToAudio(ssml, outFile);
+  // [END tts_ssml_address_test]
 }
-// [END tts_ssml_address_test]
 
 main(...process.argv.slice(2));
