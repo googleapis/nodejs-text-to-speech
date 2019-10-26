@@ -45,9 +45,7 @@ describe('TextToSpeechClient', () => {
   });
 
   it('should create a client with gRPC fallback', () => {
-    const client = new textToSpeechModule.v1.TextToSpeechClient({
-      fallback: true,
-    });
+    const client = new textToSpeechModule.v1.TextToSpeechClient({fallback: true});
     assert(client);
   });
 
@@ -169,6 +167,7 @@ describe('TextToSpeechClient', () => {
       });
     });
   });
+
 });
 
 function mockSimpleGrpcMethod(expectedRequest, response, error) {

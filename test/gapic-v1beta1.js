@@ -24,14 +24,12 @@ error.code = FAKE_STATUS_CODE;
 
 describe('TextToSpeechClient', () => {
   it('has servicePath', () => {
-    const servicePath =
-      textToSpeechModule.v1beta1.TextToSpeechClient.servicePath;
+    const servicePath = textToSpeechModule.v1beta1.TextToSpeechClient.servicePath;
     assert(servicePath);
   });
 
   it('has apiEndpoint', () => {
-    const apiEndpoint =
-      textToSpeechModule.v1beta1.TextToSpeechClient.apiEndpoint;
+    const apiEndpoint = textToSpeechModule.v1beta1.TextToSpeechClient.apiEndpoint;
     assert(apiEndpoint);
   });
 
@@ -47,9 +45,7 @@ describe('TextToSpeechClient', () => {
   });
 
   it('should create a client with gRPC fallback', () => {
-    const client = new textToSpeechModule.v1beta1.TextToSpeechClient({
-      fallback: true,
-    });
+    const client = new textToSpeechModule.v1beta1.TextToSpeechClient({fallback: true});
     assert(client);
   });
 
@@ -171,6 +167,7 @@ describe('TextToSpeechClient', () => {
       });
     });
   });
+
 });
 
 function mockSimpleGrpcMethod(expectedRequest, response, error) {
