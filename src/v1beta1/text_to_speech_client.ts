@@ -259,7 +259,6 @@ export class TextToSpeechClient {
     [
       protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesResponse,
 
-
         | protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesRequest
         | undefined,
       {} | undefined
@@ -315,7 +314,6 @@ export class TextToSpeechClient {
     [
       protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesResponse,
 
-
         | protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesRequest
         | undefined,
       {} | undefined
@@ -338,7 +336,6 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechResponse,
-
 
         | protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechRequest
         | undefined,
@@ -392,7 +389,6 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechResponse,
-
 
         | protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechRequest
         | undefined,

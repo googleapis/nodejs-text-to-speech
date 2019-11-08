@@ -27,7 +27,13 @@ common_templates = gcp.CommonTemplates()
 versions = ['v1', 'v1beta1']
 
 for version in versions:
-    library = gapic.typescript_library('texttospeech', version)
+    library = gapic.typescript_library(
+        'texttospeech', 
+        generator_args={
+            "grpc-service-config": f"google/cloud/texttospeech/{version}/texttospeech_grpc_service_config.json"
+            },
+        proto_path=f'/google/cloud/texttospeech/{version}',
+        version=version)
 
     # skip index, protos, package.json, and README.md
     s.copy(
