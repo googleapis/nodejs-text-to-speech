@@ -31,7 +31,7 @@
     "samples-test": "cd samples/ && npm link ../ && npm install && npm test && cd ../",
     "system-test": "mocha system-test",
     "docs": "jsdoc -c .jsdoc.js",
-    "lint": "gts fix && eslint --fix samples system-test",
+    "fix": "gts fix && eslint --fix samples system-test",
     "docs-test": "linkinator docs",
     "predocs-test": "npm run docs",
     "check": "gts check",
@@ -60,6 +60,6 @@
     "@types/node": "^12.0.0",
     "@types/mocha": "^5.2.5",
     "gts": "^1.0.0",
-    "typescript": "~3.6.0"
+    "typescript": "^3.7.0"
   }
 }
