@@ -16,7 +16,11 @@
 // ** https://github.com/googleapis/gapic-generator-typescript **
 // ** All changes to this file may be overwritten. **
 
-import * as v1beta1 from './v1beta1';
-export {v1beta1};
-const TextToSpeechClient = v1beta1.TextToSpeechClient;
-export {TextToSpeechClient};
+const gapic_module = Object.freeze({
+  v1beta1: require('./v1beta1'),
+  v1: require('./v1'),
+});
+module.exports = gapic_module.v1;
+module.exports.v1beta1 = gapic_module.v1beta1;
+module.exports.v1 = gapic_module.v1;
+module.exports.default = Object.assign({}, module.exports);
