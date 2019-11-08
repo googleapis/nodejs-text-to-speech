@@ -31,7 +31,7 @@
     "samples-test": "cd samples/ && npm link ../ && npm install && npm test && cd ../",
     "system-test": "mocha system-test",
     "docs": "jsdoc -c .jsdoc.js",
-    "fix": "gts fix",
+    "fix": "gts fix && eslint --fix samples system-test",
     "docs-test": "linkinator docs",
     "predocs-test": "npm run docs",
     "lint": "gts check",
