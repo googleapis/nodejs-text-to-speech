@@ -331,6 +331,7 @@ export class TextToSpeechClient {
     [
       protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechResponse,
 
+
         | protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest
         | undefined,
       {} | undefined
@@ -383,6 +384,7 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechResponse,
+
 
         | protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest
         | undefined,

@@ -16,11 +16,11 @@
 // ** https://github.com/googleapis/gapic-generator-typescript **
 // ** All changes to this file may be overwritten. **
 
-const gapic_module = Object.freeze({
+const gapic = Object.freeze({
   v1beta1: require('./v1beta1'),
   v1: require('./v1'),
 });
-module.exports = gapic_module.v1;
-module.exports.v1beta1 = gapic_module.v1beta1;
-module.exports.v1 = gapic_module.v1;
+module.exports = gapic.v1;
+module.exports.v1beta1 = gapic.v1beta1;
+module.exports.v1 = gapic.v1;
 module.exports.default = Object.assign({}, module.exports);
