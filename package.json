@@ -8,10 +8,10 @@
     "node": ">=8.10.0"
   },
   "repository": "googleapis/nodejs-text-to-speech",
-  "main": "src/index.js",
+  "main": "build/src/index.js",
   "files": [
-    "protos",
-    "src"
+    "build/protos",
+    "build/src"
   ],
   "keywords": [
     "google apis client",
@@ -27,14 +27,18 @@
     "Cloud Text-to-Speech API"
   ],
   "scripts": {
-    "test": "nyc mocha",
-    "lint": "eslint '**/*.js'",
-    "samples-test": "cd samples/ && npm link ../ && npm test && cd ../",
+    "test": "mocha build/test",
+    "samples-test": "cd samples/ && npm link ../ && npm install && npm test && cd ../",
     "system-test": "mocha system-test",
     "docs": "jsdoc -c .jsdoc.js",
-    "fix": "eslint --fix '**/*.js'",
+    "fix": "gts fix",
     "docs-test": "linkinator docs",
-    "predocs-test": "npm run docs"
+    "predocs-test": "npm run docs",
+    "lint": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p . && cp -r protos build/",
+    "compile-protos": "compileProtos src",
+    "prepare": "npm run compile"
   },
   "dependencies": {
     "google-gax": "^1.7.5"
@@ -48,10 +52,14 @@
     "jsdoc-fresh": "^1.0.1",
     "intelli-espower-loader": "^1.0.1",
     "jsdoc": "^3.5.5",
-    "mocha": "^6.0.0",
+    "mocha": "^6.1.4",
     "nyc": "^14.0.0",
     "power-assert": "^1.4.4",
     "prettier": "^1.11.1",
-    "linkinator": "^1.5.0"
+    "linkinator": "^1.5.0",
+    "@types/node": "^12.0.0",
+    "@types/mocha": "^5.2.5",
+    "gts": "^1.0.0",
+    "typescript": "~3.6.0"
   }
 }

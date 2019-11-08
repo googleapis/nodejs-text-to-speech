@@ -21,13 +21,13 @@ import subprocess
 
 logging.basicConfig(level=logging.DEBUG)
 
-gapic = gcp.GAPICGenerator()
+gapic = gcp.GAPICMicrogenerator()
 common_templates = gcp.CommonTemplates()
 
 versions = ['v1', 'v1beta1']
 
 for version in versions:
-    library = gapic.node_library('texttospeech', version)
+    library = gapic.typescript_library('texttospeech', version)
 
     # skip index, protos, package.json, and README.md
     s.copy(
@@ -35,7 +35,7 @@ for version in versions:
         excludes=['package.json', 'README.md', 'src/index.js'],
     )
 
-templates = common_templates.node_library()
+templates = common_templates.node_library(source_location='build/src')
 s.copy(templates)
 
 # Fix dead link

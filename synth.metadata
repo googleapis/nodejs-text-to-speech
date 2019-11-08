@@ -1,19 +1,12 @@
 {
-  "updateTime": "2019-11-05T12:25:59.440960Z",
+  "updateTime": "2019-11-08T00:16:21.824916Z",
   "sources": [
-    {
-      "generator": {
-        "name": "artman",
-        "version": "0.41.0",
-        "dockerImage": "googleapis/artman@sha256:75b38a3b073a7b243545f2332463096624c802bb1e56b8cb6f22ba1ecd325fa9"
-      }
-    },
     {
       "git": {
         "name": "googleapis",
         "remote": "https://github.com/googleapis/googleapis.git",
-        "sha": "8c6569ced063c08a48272de2e887860d0c40d388",
-        "internalRef": "278552094"
+        "sha": "29927f71d92d59551a42272ab7c6e97e8413af78",
+        "internalRef": "279176561"
       }
     },
     {
@@ -30,9 +23,8 @@
         "source": "googleapis",
         "apiName": "texttospeech",
         "apiVersion": "v1",
-        "language": "nodejs",
-        "generator": "gapic",
-        "config": "google/cloud/texttospeech/artman_texttospeech_v1.yaml"
+        "language": "typescript",
+        "generator": "gapic-generator-typescript"
       }
     },
     {
@@ -40,9 +32,8 @@
         "source": "googleapis",
         "apiName": "texttospeech",
         "apiVersion": "v1beta1",
-        "language": "nodejs",
-        "generator": "gapic",
-        "config": "google/cloud/texttospeech/artman_texttospeech_v1beta1.yaml"
+        "language": "typescript",
+        "generator": "gapic-generator-typescript"
       }
     }
   ]
