@@ -19,7 +19,8 @@
 import * as v1beta1 from './v1beta1';
 import * as v1 from './v1';
 
-module.exports = v1;
-module.exports.v1beta1 = v1beta1;
-module.exports.v1 = v1;
-module.exports.default = Object.assign({}, module.exports);
+const TextToSpeechClient = v1.TextToSpeechClient;
+export {v1, v1beta1, TextToSpeechClient};
+// For compatibility with JavaScript libraries we need to provide this default export:
+// tslint:disable-next-line no-default-export
+export default {v1, v1beta1, TextToSpeechClient};

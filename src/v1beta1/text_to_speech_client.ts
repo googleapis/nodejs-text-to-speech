@@ -17,42 +17,13 @@
 // ** All changes to this file may be overwritten. **
 
 import * as gax from 'google-gax';
+import {Callback, Descriptors, ClientOptions} from 'google-gax';
 import * as path from 'path';
 
 import * as protosTypes from '../../protos/protos';
 import * as gapicConfig from './text_to_speech_client_config.json';
 
 const version = require('../../../package.json').version;
-
-export interface ClientOptions
-  extends gax.GrpcClientOptions,
-    gax.GoogleAuthOptions,
-    gax.ClientStubOptions {
-  libName?: string;
-  libVersion?: string;
-  clientConfig?: gax.ClientConfig;
-  fallback?: boolean;
-  apiEndpoint?: string;
-}
-
-interface Descriptors {
-  page: {[name: string]: gax.PageDescriptor};
-  stream: {[name: string]: gax.StreamDescriptor};
-  longrunning: {[name: string]: gax.LongrunningDescriptor};
-}
-
-export interface Callback<
-  ResponseObject,
-  NextRequestObject,
-  RawResponseObject
-> {
-  (
-    err: Error | null | undefined,
-    value?: ResponseObject | null,
-    nextRequest?: NextRequestObject,
-    rawResponse?: RawResponseObject
-  ): void;
-}
 
 /**
  *  Service that implements Google Cloud Text-to-Speech API.
@@ -258,9 +229,10 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesResponse,
-
+      (
         | protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesRequest
-        | undefined,
+        | undefined
+      ),
       {} | undefined
     ]
   >;
@@ -279,7 +251,7 @@ export class TextToSpeechClient {
    *
    * @param {Object} request
    *   The request object that will be sent.
-   * @param {string} request.language_code
+   * @param {string} [request.languageCode]
    *   Optional. Recommended.
    *   [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag. If
    *   specified, the ListVoices call will only return voices that can be used to
@@ -313,9 +285,10 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesResponse,
-
+      (
         | protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesRequest
-        | undefined,
+        | undefined
+      ),
       {} | undefined
     ]
   > | void {
@@ -336,9 +309,10 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechResponse,
-
+      (
         | protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechRequest
-        | undefined,
+        | undefined
+      ),
       {} | undefined
     ]
   >;
@@ -362,7 +336,7 @@ export class TextToSpeechClient {
    *   Required. The Synthesizer requires either plain text or SSML as input.
    * @param {google.cloud.texttospeech.v1beta1.VoiceSelectionParams} request.voice
    *   Required. The desired voice of the synthesized audio.
-   * @param {google.cloud.texttospeech.v1beta1.AudioConfig} request.audio_config
+   * @param {google.cloud.texttospeech.v1beta1.AudioConfig} request.audioConfig
    *   Required. The configuration of the synthesized audio.
    * @param {object} [options]
    *   Call options. See {@link https://googleapis.dev/nodejs/google-gax/latest/interfaces/CallOptions.html|CallOptions} for more details.
@@ -389,9 +363,10 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechResponse,
-
+      (
         | protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechRequest
-        | undefined,
+        | undefined
+      ),
       {} | undefined
     ]
   > | void {
