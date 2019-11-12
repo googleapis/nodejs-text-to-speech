@@ -56,6 +56,8 @@ export interface Callback<
 
 /**
  *  Service that implements Google Cloud Text-to-Speech API.
+ *  @class 
+ *  @memberof v1beta1
  */
 export class TextToSpeechClient {
   private _descriptors: Descriptors = {page: {}, stream: {}, longrunning: {}};

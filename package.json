@@ -27,14 +27,13 @@
     "Cloud Text-to-Speech API"
   ],
   "scripts": {
-    "test": "mocha build/test",
+    "test": "c8 mocha build/test",
     "samples-test": "cd samples/ && npm link ../ && npm install && npm test && cd ../",
     "system-test": "mocha system-test",
     "docs": "jsdoc -c .jsdoc.js",
     "lint": "gts fix && eslint --fix samples system-test",
     "fix": "gts fix",
     "docs-test": "linkinator docs",
-    "predocs-test": "npm run docs",
     "check": "gts check",
     "clean": "gts clean",
     "compile": "tsc -p . && cp -r protos build/",
