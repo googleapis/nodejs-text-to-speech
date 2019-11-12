@@ -44,11 +44,6 @@ for version in versions:
 templates = common_templates.node_library(source_location='build/src')
 s.copy(templates)
 
-# Fix dead link
-s.replace('src/v1/doc/google/cloud/texttospeech/v1/doc_cloud_tts.js',
-        "\(https:[\s\*]+(.*)\)",
-        r"(https:\1)")
-
 # Node.js specific cleanup
 subprocess.run(['npm', 'install'])
 subprocess.run(['npm', 'run', 'fix'])

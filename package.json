@@ -29,9 +29,9 @@
   "scripts": {
     "test": "c8 mocha build/test",
     "samples-test": "cd samples/ && npm link ../ && npm install && npm test && cd ../",
-    "system-test": "mocha system-test",
+    "system-test": "mocha build/system-test",
     "docs": "jsdoc -c .jsdoc.js",
-    "lint": "gts fix && eslint --fix samples system-test",
+    "lint": "gts fix && eslint --fix samples/*.js samples/**/*.js",
     "fix": "gts fix",
     "docs-test": "linkinator docs",
     "check": "gts check",
@@ -41,25 +41,32 @@
     "prepare": "npm run compile"
   },
   "dependencies": {
-    "google-gax": "^1.7.5"
+    "google-gax": "^1.9.0"
   },
   "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/mv": "^2.1.0",
+    "@types/ncp": "^2.0.3",
+    "@types/node": "^12.0.0",
+    "@types/tmp": "^0.1.0",
     "codecov": "^3.0.0",
     "eslint": "^6.0.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-prettier": "^3.0.0",
-    "jsdoc-fresh": "^1.0.1",
+    "execa": "^3.2.0",
+    "gts": "^1.0.0",
     "intelli-espower-loader": "^1.0.1",
     "jsdoc": "^3.5.5",
+    "jsdoc-fresh": "^1.0.1",
+    "linkinator": "^1.5.0",
     "mocha": "^6.1.4",
+    "mv": "^2.1.1",
+    "ncp": "^2.0.0",
     "nyc": "^14.0.0",
     "power-assert": "^1.4.4",
     "prettier": "^1.11.1",
-    "linkinator": "^1.5.0",
-    "@types/node": "^12.0.0",
-    "@types/mocha": "^5.2.5",
-    "gts": "^1.0.0",
+    "tmp": "^0.1.0",
     "typescript": "^3.7.0"
   }
 }
