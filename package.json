@@ -65,9 +65,13 @@
     "mocha": "^6.1.4",
     "mv": "^2.1.1",
     "ncp": "^2.0.0",
+    "null-loader": "^3.0.0",
     "power-assert": "^1.4.4",
     "prettier": "^1.11.1",
     "tmp": "^0.1.0",
-    "typescript": "^3.7.0"
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }
