@@ -17,7 +17,13 @@
 // ** All changes to this file may be overwritten. **
 
 import * as gax from 'google-gax';
-import {Callback, Descriptors, ClientOptions} from 'google-gax';
+import {
+  APICallback,
+  Callback,
+  CallOptions,
+  Descriptors,
+  ClientOptions,
+} from 'google-gax';
 import * as path from 'path';
 
 import * as protosTypes from '../../protos/protos';
@@ -32,7 +38,9 @@ const version = require('../../../package.json').version;
  */
 export class TextToSpeechClient {
   private _descriptors: Descriptors = {page: {}, stream: {}, longrunning: {}};
+  private _textToSpeechStub: Promise<{[name: string]: Function}>;
   private _innerApiCalls: {[name: string]: Function};
+  private _terminated = false;
   auth: gax.GoogleAuth;
 
   /**
@@ -141,7 +149,7 @@ export class TextToSpeechClient {
 
     // Put together the "service stub" for
     // google.cloud.texttospeech.v1beta1.TextToSpeech.
-    const textToSpeechStub = gaxGrpc.createStub(
+    this._textToSpeechStub = gaxGrpc.createStub(
       opts.fallback
         ? (protos as protobuf.Root).lookupService(
             'google.cloud.texttospeech.v1beta1.TextToSpeech'
@@ -156,8 +164,8 @@ export class TextToSpeechClient {
     const textToSpeechStubMethods = ['listVoices', 'synthesizeSpeech'];
 
     for (const methodName of textToSpeechStubMethods) {
-      const innerCallPromise = textToSpeechStub.then(
-        (stub: {[method: string]: Function}) => (...args: Array<{}>) => {
+      const innerCallPromise = this._textToSpeechStub.then(
+        stub => (...args: Array<{}>) => {
           return stub[methodName].apply(stub, args);
         },
         (err: Error | null | undefined) => () => {
@@ -165,13 +173,24 @@ export class TextToSpeechClient {
         }
       );
 
-      this._innerApiCalls[methodName] = gaxModule.createApiCall(
+      const apiCall = gaxModule.createApiCall(
         innerCallPromise,
         defaults[methodName],
         this._descriptors.page[methodName] ||
           this._descriptors.stream[methodName] ||
           this._descriptors.longrunning[methodName]
       );
+
+      this._innerApiCalls[methodName] = (
+        argument: {},
+        callOptions?: CallOptions,
+        callback?: APICallback
+      ) => {
+        if (this._terminated) {
+          return Promise.reject('The client has already been closed.');
+        }
+        return apiCall(argument, callOptions, callback);
+      };
     }
   }
 
@@ -382,5 +401,20 @@ export class TextToSpeechClient {
     }
     options = options || {};
     return this._innerApiCalls.synthesizeSpeech(request, options, callback);
+  }
+
+  /**
+   * Terminate the GRPC channel and close the client.
+   *
+   * The client will no longer be usable and all future behavior is undefined.
+   */
+  close(): Promise<void> {
+    if (!this._terminated) {
+      return this._textToSpeechStub.then(stub => {
+        this._terminated = true;
+        stub.close();
+      });
+    }
+    return Promise.resolve();
   }
 }
