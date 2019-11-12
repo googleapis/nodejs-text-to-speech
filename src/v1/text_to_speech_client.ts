@@ -27,8 +27,6 @@ const version = require('../../../package.json').version;
 
 /**
  *  Service that implements Google Cloud Text-to-Speech API.
- *  @class 
- *  @memberof v1
  */
 export class TextToSpeechClient {
   private _descriptors: Descriptors = {page: {}, stream: {}, longrunning: {}};
@@ -303,10 +301,9 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechResponse,
-      (
+
         | protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest
-        | undefined
-      ),
+        | undefined,
       {} | undefined
     ]
   >;
@@ -357,10 +354,9 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechResponse,
-      (
+
         | protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest
-        | undefined
-      ),
+        | undefined,
       {} | undefined
     ]
   > | void {

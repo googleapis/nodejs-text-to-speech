@@ -27,8 +27,6 @@ const version = require('../../../package.json').version;
 
 /**
  *  Service that implements Google Cloud Text-to-Speech API.
- *  @class 
- *  @memberof v1beta1
  */
 export class TextToSpeechClient {
   private _descriptors: Descriptors = {page: {}, stream: {}, longrunning: {}};
@@ -231,10 +229,9 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesResponse,
-      (
+
         | protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesRequest
-        | undefined
-      ),
+        | undefined,
       {} | undefined
     ]
   >;
@@ -287,10 +284,9 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesResponse,
-      (
+
         | protosTypes.google.cloud.texttospeech.v1beta1.IListVoicesRequest
-        | undefined
-      ),
+        | undefined,
       {} | undefined
     ]
   > | void {
@@ -311,10 +307,9 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechResponse,
-      (
+
         | protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechRequest
-        | undefined
-      ),
+        | undefined,
       {} | undefined
     ]
   >;
@@ -365,10 +360,9 @@ export class TextToSpeechClient {
   ): Promise<
     [
       protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechResponse,
-      (
+
         | protosTypes.google.cloud.texttospeech.v1beta1.ISynthesizeSpeechRequest
-        | undefined
-      ),
+        | undefined,
       {} | undefined
     ]
   > | void {
