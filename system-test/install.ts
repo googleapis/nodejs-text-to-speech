@@ -16,40 +16,35 @@
 // ** https://github.com/googleapis/gapic-generator-typescript **
 // ** All changes to this file may be overwritten. **
 
-import * as execa from 'execa';
-import * as mv from 'mv';
-import {ncp} from 'ncp';
-import * as tmp from 'tmp';
-import {promisify} from 'util';
+import {packNTest} from 'pack-n-play';
+import {readFileSync} from 'fs';
 
-const keep = false;
-const mvp = promisify(mv);
-const ncpp = promisify(ncp);
-const stagingDir = tmp.dirSync({keep, unsafeCleanup: true});
-const stagingPath = stagingDir.name;
-const pkg = require('../../package.json');
-
-describe('📦 pack and install', () => {
-  it('should be able use the library from a TypeScript application', async function() {
+describe('typescript consumer tests', () => {
+  it('should have correct type signature for typescript users', async function() {
     this.timeout(300000);
-    await execa('npm', ['pack', '--unsafe-perm']);
-    const packageName = pkg.name.replace('@', '').replace('/', '-');
-    const tarball = `${packageName}-${pkg.version}.tgz`;
-    await mvp(tarball, `${stagingPath}/texttospeech.tgz`);
-    await ncpp('system-test/fixtures/sample', `${stagingPath}/`);
-    await execa('npm', ['install', '--unsafe-perm'], {
-      cwd: `${stagingPath}/`,
-      stdio: 'inherit',
-    });
-    await execa('node', ['--throw-deprecation', 'build/src/index.js'], {
-      cwd: `${stagingPath}/`,
-      stdio: 'inherit',
-    });
+    const options = {
+      packageDir: process.cwd(), // path to your module.
+      sample: {
+        description: 'typescript based user can use the type definitions',
+        ts: readFileSync(
+          './system-test/fixtures/sample/src/index.ts'
+        ).toString(),
+      },
+    };
+    await packNTest(options); // will throw upon error.
   });
 
-  after('cleanup staging', () => {
-    if (!keep) {
-      stagingDir.removeCallback();
-    }
+  it('should have correct type signature for javascript users', async function() {
+    this.timeout(300000);
+    const options = {
+      packageDir: process.cwd(), // path to your module.
+      sample: {
+        description: 'typescript based user can use the type definitions',
+        ts: readFileSync(
+          './system-test/fixtures/sample/src/index.js'
+        ).toString(),
+      },
+    };
+    await packNTest(options); // will throw upon error.
   });
 });

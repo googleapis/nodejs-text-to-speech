@@ -17,8 +17,8 @@ const path = require('path');
 module.exports = {
   entry: './src/index.ts',
   output: {
-    library: 'TextToSpeech',
-    filename: './text-to-speech.js',
+    library: 'texttospeech',
+    filename: './texttospeech.js',
   },
   node: {
     child_process: 'empty',
