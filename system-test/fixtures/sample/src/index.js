@@ -16,7 +16,7 @@
 // ** https://github.com/googleapis/gapic-generator-typescript **
 // ** All changes to this file may be overwritten. **
 
-const texttospeech = require('texttospeech');
+const texttospeech = require('@google-cloud/text-to-speech');
 
 function main() {
   const textToSpeechClient = new texttospeech.TextToSpeechClient();

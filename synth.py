@@ -44,6 +44,10 @@ for version in versions:
 templates = common_templates.node_library(source_location='build/src')
 s.copy(templates)
 
+# Fix system tests
+# TODO: must be a feature of pack-n-play
+s.replace('system-test/fixtures/sample/src/index.*', "'texttospeech'", "'@google-cloud/text-to-speech'")
+
 # Node.js specific cleanup
 subprocess.run(['npm', 'install'])
 subprocess.run(['npm', 'run', 'fix'])
