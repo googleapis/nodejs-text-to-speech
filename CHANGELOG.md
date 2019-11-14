@@ -4,6 +4,14 @@
 
 [1]: https://www.npmjs.com/package/@google-cloud/text-to-speech?activeTab=versions
 
+### [1.4.2](https://www.github.com/googleapis/nodejs-text-to-speech/compare/v1.4.1...v1.4.2) (2019-11-14)
+
+
+### Bug Fixes
+
+* import long into proto ts declaration file ([#288](https://www.github.com/googleapis/nodejs-text-to-speech/issues/288)) ([5bfb2ab](https://www.github.com/googleapis/nodejs-text-to-speech/commit/5bfb2ab7f76625361d52ad945733087877e03800))
+* **docs:** snippets are now replaced in jsdoc comments ([#287](https://www.github.com/googleapis/nodejs-text-to-speech/issues/287)) ([6e77aaf](https://www.github.com/googleapis/nodejs-text-to-speech/commit/6e77aaf10d814ab5366117c7251c29f25aa603b3))
+
 ### [1.4.1](https://www.github.com/googleapis/nodejs-text-to-speech/compare/v1.4.0...v1.4.1) (2019-10-22)
 
 
