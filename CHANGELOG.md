@@ -11,6 +11,12 @@
 
 * move library to typescript code generation (#285)
 
+Starting with this release, the auto-generated library code was changed from JavaScript to TypeScript, so all the TypeScript types are now exported from the `.d.ts` files.
+
+Please note that if you used `@types/google-cloud__text-to-speech` package to get TypeScript types for this library, you need to stop using it and remove it from your `devDependencies`.
+
+If you see any issues caused by this migration to TypeScript, please feel free to submit an issue!
+
 ### Features
 
 * move library to typescript code generation ([#285](https://www.github.com/googleapis/nodejs-text-to-speech/issues/285)) ([d3d6208](https://www.github.com/googleapis/nodejs-text-to-speech/commit/d3d620853adc54fe7b671fa01643f6b0ef94794b))
