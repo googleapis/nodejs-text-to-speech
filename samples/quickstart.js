@@ -44,5 +44,5 @@ async function main() {
   await writeFile('output.mp3', response.audioContent, 'binary');
   console.log('Audio content written to file: output.mp3');
 }
-// [END tts_quickstart]
 main().catch(console.error);
+// [END tts_quickstart]
