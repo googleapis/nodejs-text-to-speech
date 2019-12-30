@@ -14,35 +14,40 @@
 
 'use strict';
 
-// [START tts_quickstart]
-// Imports the Google Cloud client library
-const textToSpeech = require('@google-cloud/text-to-speech');
+function main(
+){
+  // [start tts_quickstart]
+  // imports the google cloud client library
+  const textToSpeech = require('@google-cloud/text-to-speech');
 
-// Import other required libraries
-const fs = require('fs');
-const util = require('util');
-async function main() {
-  // Creates a client
+  // import other required libraries
+  const fs = require('fs');
+  const util = require('util');
+  // creates a client
   const client = new textToSpeech.TextToSpeechClient();
+  async function quickStart() {
 
-  // The text to synthesize
-  const text = 'Hello, world!';
+    // the text to synthesize
+    const text = 'hello, world!';
 
-  // Construct the request
-  const request = {
-    input: {text: text},
-    // Select the language and SSML Voice Gender (optional)
-    voice: {languageCode: 'en-US', ssmlGender: 'NEUTRAL'},
-    // Select the type of audio encoding
-    audioConfig: {audioEncoding: 'MP3'},
-  };
+    // construct the request
+    const request = {
+      input: {text: text},
+      // select the language and ssml voice gender (optional)
+      voice: {languageCode: 'en-us', ssmlGender: 'neutral'},
+      // select the type of audio encoding
+      audioConfig: {audioEncoding: 'MP3'},
+    };
 
-  // Performs the Text-to-Speech request
-  const [response] = await client.synthesizeSpeech(request);
-  // Write the binary audio content to a local file
-  const writeFile = util.promisify(fs.writeFile);
-  await writeFile('output.mp3', response.audioContent, 'binary');
-  console.log('Audio content written to file: output.mp3');
+    // performs the text-to-speech request
+    const [response] = await client.synthesizeSpeech(request);
+    // write the binary audio content to a local file
+    const writeFile = util.promisify(fs.writeFile);
+    await writeFile('output.mp3', response.audioContent, 'binary');
+    console.log('audio content written to file: output.mp3');
+  }
+  quickStart();
+  // [end tts_quickstart]
 }
-main().catch(console.error);
-// [END tts_quickstart]
+
+main(...process.argv.slice(2));
