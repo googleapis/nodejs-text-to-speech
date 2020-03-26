@@ -18,183 +18,177 @@
 
 import * as protosTypes from '../protos/protos';
 import * as assert from 'assert';
-import {describe, it} from 'mocha';
+import { describe, it } from 'mocha';
+/* eslint-disable @typescript-eslint/no-var-requires */
 const texttospeechModule = require('../src');
 
+
 const FAKE_STATUS_CODE = 1;
-class FakeError {
-  name: string;
-  message: string;
-  code: number;
-  constructor(n: number) {
-    this.name = 'fakeName';
-    this.message = 'fake message';
-    this.code = n;
-  }
+class FakeError{
+    name: string;
+    message: string;
+    code: number;
+    constructor(n: number){
+        this.name = 'fakeName';
+        this.message = 'fake message';
+        this.code = n;
+    }
 }
 const error = new FakeError(FAKE_STATUS_CODE);
 export interface Callback {
-  (err: FakeError | null, response?: {} | null): void;
+  (err: FakeError|null, response?: {} | null): void;
 }
 
-export class Operation {
-  constructor() {}
-  promise() {}
+export class Operation{
+    constructor(){};
+    promise() {};
 }
-function mockSimpleGrpcMethod(
-  expectedRequest: {},
-  response: {} | null,
-  error: FakeError | null
-) {
-  return (actualRequest: {}, options: {}, callback: Callback) => {
-    assert.deepStrictEqual(actualRequest, expectedRequest);
-    if (error) {
-      callback(error);
-    } else if (response) {
-      callback(null, response);
-    } else {
-      callback(null);
-    }
-  };
+function mockSimpleGrpcMethod(expectedRequest: {}, response: {} | null, error: FakeError | null) {
+    return (actualRequest: {}, options: {}, callback: Callback) => {
+        assert.deepStrictEqual(actualRequest, expectedRequest);
+        if (error) {
+            callback(error);
+        } else if (response) {
+            callback(null, response);
+        } else {
+            callback(null);
+        }
+    };
 }
 describe('v1.TextToSpeechClient', () => {
-  it('has servicePath', () => {
-    const servicePath = texttospeechModule.v1.TextToSpeechClient.servicePath;
-    assert(servicePath);
-  });
-  it('has apiEndpoint', () => {
-    const apiEndpoint = texttospeechModule.v1.TextToSpeechClient.apiEndpoint;
-    assert(apiEndpoint);
-  });
-  it('has port', () => {
-    const port = texttospeechModule.v1.TextToSpeechClient.port;
-    assert(port);
-    assert(typeof port === 'number');
-  });
-  it('should create a client with no option', () => {
-    const client = new texttospeechModule.v1.TextToSpeechClient();
-    assert(client);
-  });
-  it('should create a client with gRPC fallback', () => {
-    const client = new texttospeechModule.v1.TextToSpeechClient({
-      fallback: true,
+    it('has servicePath', () => {
+        const servicePath = texttospeechModule.v1.TextToSpeechClient.servicePath;
+        assert(servicePath);
     });
-    assert(client);
-  });
-  it('has initialize method and supports deferred initialization', async () => {
-    const client = new texttospeechModule.v1.TextToSpeechClient({
-      credentials: {client_email: 'bogus', private_key: 'bogus'},
-      projectId: 'bogus',
+    it('has apiEndpoint', () => {
+        const apiEndpoint = texttospeechModule.v1.TextToSpeechClient.apiEndpoint;
+        assert(apiEndpoint);
     });
-    assert.strictEqual(client.textToSpeechStub, undefined);
-    await client.initialize();
-    assert(client.textToSpeechStub);
-  });
-  it('has close method', () => {
-    const client = new texttospeechModule.v1.TextToSpeechClient({
-      credentials: {client_email: 'bogus', private_key: 'bogus'},
-      projectId: 'bogus',
+    it('has port', () => {
+        const port = texttospeechModule.v1.TextToSpeechClient.port;
+        assert(port);
+        assert(typeof port === 'number');
     });
-    client.close();
-  });
-  describe('listVoices', () => {
-    it('invokes listVoices without error', done => {
-      const client = new texttospeechModule.v1.TextToSpeechClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.texttospeech.v1.IListVoicesRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.listVoices = mockSimpleGrpcMethod(
-        request,
-        expectedResponse,
-        null
-      );
-      client.listVoices(request, (err: {}, response: {}) => {
-        assert.ifError(err);
-        assert.deepStrictEqual(response, expectedResponse);
-        done();
-      });
+    it('should create a client with no option', () => {
+        const client = new texttospeechModule.v1.TextToSpeechClient();
+        assert(client);
     });
+    it('should create a client with gRPC fallback', () => {
+        const client = new texttospeechModule.v1.TextToSpeechClient({
+            fallback: true,
+        });
+        assert(client);
+    });
+    it('has initialize method and supports deferred initialization', async () => {
+        const client = new texttospeechModule.v1.TextToSpeechClient({
+            credentials: { client_email: 'bogus', private_key: 'bogus' },
+            projectId: 'bogus',
+        });
+        assert.strictEqual(client.textToSpeechStub, undefined);
+        await client.initialize();
+        assert(client.textToSpeechStub);
+    });
+    it('has close method', () => {
+        const client = new texttospeechModule.v1.TextToSpeechClient({
+            credentials: { client_email: 'bogus', private_key: 'bogus' },
+            projectId: 'bogus',
+        });
+        client.close();
+    });
+    describe('listVoices', () => {
+        it('invokes listVoices without error', done => {
+            const client = new texttospeechModule.v1.TextToSpeechClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.texttospeech.v1.IListVoicesRequest = {};
+            // Mock response
+            const expectedResponse = {};
+            // Mock gRPC layer
+            client._innerApiCalls.listVoices = mockSimpleGrpcMethod(
+                request,
+                expectedResponse,
+                null
+            );
+            client.listVoices(request, (err: {}, response: {}) => {
+                assert.ifError(err);
+                assert.deepStrictEqual(response, expectedResponse);
+                done();
+            })
+        });
 
-    it('invokes listVoices with error', done => {
-      const client = new texttospeechModule.v1.TextToSpeechClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.texttospeech.v1.IListVoicesRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.listVoices = mockSimpleGrpcMethod(
-        request,
-        null,
-        error
-      );
-      client.listVoices(request, (err: FakeError, response: {}) => {
-        assert(err instanceof FakeError);
-        assert.strictEqual(err.code, FAKE_STATUS_CODE);
-        assert(typeof response === 'undefined');
-        done();
-      });
+        it('invokes listVoices with error', done => {
+            const client = new texttospeechModule.v1.TextToSpeechClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.texttospeech.v1.IListVoicesRequest = {};
+            // Mock gRPC layer
+            client._innerApiCalls.listVoices = mockSimpleGrpcMethod(
+                request,
+                null,
+                error
+            );
+            client.listVoices(request, (err: FakeError, response: {}) => {
+                assert(err instanceof FakeError);
+                assert.strictEqual(err.code, FAKE_STATUS_CODE);
+                assert(typeof response === 'undefined');
+                done();
+            })
+        });
     });
-  });
-  describe('synthesizeSpeech', () => {
-    it('invokes synthesizeSpeech without error', done => {
-      const client = new texttospeechModule.v1.TextToSpeechClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.synthesizeSpeech = mockSimpleGrpcMethod(
-        request,
-        expectedResponse,
-        null
-      );
-      client.synthesizeSpeech(request, (err: {}, response: {}) => {
-        assert.ifError(err);
-        assert.deepStrictEqual(response, expectedResponse);
-        done();
-      });
-    });
+    describe('synthesizeSpeech', () => {
+        it('invokes synthesizeSpeech without error', done => {
+            const client = new texttospeechModule.v1.TextToSpeechClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest = {};
+            // Mock response
+            const expectedResponse = {};
+            // Mock gRPC layer
+            client._innerApiCalls.synthesizeSpeech = mockSimpleGrpcMethod(
+                request,
+                expectedResponse,
+                null
+            );
+            client.synthesizeSpeech(request, (err: {}, response: {}) => {
+                assert.ifError(err);
+                assert.deepStrictEqual(response, expectedResponse);
+                done();
+            })
+        });
 
-    it('invokes synthesizeSpeech with error', done => {
-      const client = new texttospeechModule.v1.TextToSpeechClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.synthesizeSpeech = mockSimpleGrpcMethod(
-        request,
-        null,
-        error
-      );
-      client.synthesizeSpeech(request, (err: FakeError, response: {}) => {
-        assert(err instanceof FakeError);
-        assert.strictEqual(err.code, FAKE_STATUS_CODE);
-        assert(typeof response === 'undefined');
-        done();
-      });
+        it('invokes synthesizeSpeech with error', done => {
+            const client = new texttospeechModule.v1.TextToSpeechClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest = {};
+            // Mock gRPC layer
+            client._innerApiCalls.synthesizeSpeech = mockSimpleGrpcMethod(
+                request,
+                null,
+                error
+            );
+            client.synthesizeSpeech(request, (err: FakeError, response: {}) => {
+                assert(err instanceof FakeError);
+                assert.strictEqual(err.code, FAKE_STATUS_CODE);
+                assert(typeof response === 'undefined');
+                done();
+            })
+        });
     });
-  });
 });
