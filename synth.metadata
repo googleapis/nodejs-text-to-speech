@@ -1,6 +1,12 @@
 {
-  "updateTime": "2020-04-03T12:19:52.082476Z",
   "sources": [
+    {
+      "git": {
+        "name": ".",
+        "remote": "https://github.com/googleapis/nodejs-text-to-speech.git",
+        "sha": "040240d132d0eaf50fe82b253d53622e8bb04fde"
+      }
+    },
     {
       "git": {
         "name": "googleapis",
