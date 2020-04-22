@@ -18,6 +18,9 @@ import synthtool as s
 import synthtool.gcp as gcp
 import logging
 import subprocess
+import typing
+import pathlib
+import subprocess
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -27,28 +30,67 @@ AUTOSYNTH_MULTIPLE_COMMITS = True
 gapic = gcp.GAPICMicrogenerator()
 common_templates = gcp.CommonTemplates()
 
-versions = ['v1', 'v1beta1']
+versions = ["v1", "v1beta1"]
 
 for version in versions:
     library = gapic.typescript_library(
-        'texttospeech',
+        "texttospeech",
         generator_args={
             "grpc-service-config": f"google/cloud/texttospeech/{version}/texttospeech_grpc_service_config.json",
-            "package-name":f"@google-cloud/text-to-speech"
-            },
-        proto_path=f'/google/cloud/texttospeech/{version}',
-        version=version)
+            "package-name": f"@google-cloud/text-to-speech",
+        },
+        proto_path=f"/google/cloud/texttospeech/{version}",
+        version=version,
+    )
 
     # skip index, protos, package.json, and README.md
     s.copy(
-        library,
-        excludes=['package.json', 'README.md', 'src/index.ts'],
+        library, excludes=["package.json", "README.md", "src/index.ts"],
     )
 
-templates = common_templates.node_library(source_location='build/src')
+
+def generate_index_ts(versions: typing.List[str], default_version: str) -> None:
+    """Parses src/*/index.ts...."""
+    versioned_index_ts_path = pathlib.Path("src") / default_version / "index.ts"
+    # TODO(Summer): replace the tsc command with a command that lists the exports.
+    output: str = subprocess.run(
+        ["tsc", "--arg1", "yadayada", str(versioned_index_ts_path)],
+        universal_newlines=True,
+        stdout=subprocess.PIPE,
+        check=True,
+    ).stdout.strip()
+    # TODO(Summer): Generate index.ts from output.
+    first_name, last_name, age = "Jeffrey", "Rennie", "<secret>"
+    index_ts_body = f"""
+First name: {first_name}
+Last name: {last_name}
+Age: {age}
+    """
+    with open(pathlib.Path("src") / "index.ts", "wt") as index_ts:
+        index_ts.write(index_ts_body)
+
+generate_index_ts(versions, "v1")
+
+
+"""
+RAW meeting notes.
+
+What's the input for generating index.ts?
+1. versions from line 30
+2. src/v1/index.ts
+3. NOT src/v1beta1/index.ts, because v1 is the default version.
+
+We will explicitly define which version is the default version in synth.py.
+
+Step 1: modify this file in place to generate the new index.ts.
+Step 2: call me back, and we'll move the new code out of this repo and into
+        synthtool codebase.
+"""
+
+templates = common_templates.node_library(source_location="build/src")
 s.copy(templates)
 
 # Node.js specific cleanup
-subprocess.run(['npm', 'install'])
-subprocess.run(['npm', 'run', 'fix'])
-subprocess.run(['npx', 'compileProtos', 'src'])
+subprocess.run(["npm", "install"])
+subprocess.run(["npm", "run", "fix"])
+subprocess.run(["npx", "compileProtos", "src"])
