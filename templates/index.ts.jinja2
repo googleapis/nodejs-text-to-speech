@@ -1,0 +1,7 @@
+{%- for version in versions -%}import * as {{ version }} from './{{ version}}';{{ "\n" }}{% endfor %}
+{% for client in clients -%}const {{ client }} = {{ default_version }}.{{ client }};{{ "\n" }}{% endfor %}
+export {{ "{" }}{{ versions|join(', ')}}, {{ clients|join(', ')}}{{ "}" }};
+export default {{ "{" }}{{ versions|join(', ')}}, {{ clients|join(', ')}}{{ "}" }};
+import * as protos from '../protos/protos';
+export {protos};
+

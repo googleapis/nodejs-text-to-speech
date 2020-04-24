@@ -21,6 +21,8 @@ import subprocess
 import typing
 import pathlib
 import subprocess
+from jinja2 import Template, FileSystemLoader, Environment
+import re
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -49,25 +51,40 @@ for version in versions:
     )
 
 
+def find_clients(filePath: str) -> typing.List[str]:
+    with open(filePath, "r") as fh:
+        content = fh.read()
+    return re.findall(r"\{(.*Client)\}", content)
+
+
+def process_template(versions: typing.List[str], default_version: str, clients: typing.List[str]) -> None:
+    templateLoader = FileSystemLoader(searchpath="./templates")
+    templateEnv = Environment(loader=templateLoader)
+    TEMPLATE_FILE = "index.ts.jinja2"
+    index = templateEnv.get_template(TEMPLATE_FILE)
+    # this is where to put args to the template renderer
+    outputText = index.render(
+        versions=versions, default_version=default_version, clients=clients)
+    with open("src/index.ts", "w") as fh:
+        fh.write(outputText)
+
+
 def generate_index_ts(versions: typing.List[str], default_version: str) -> None:
     """Parses src/*/index.ts...."""
-    versioned_index_ts_path = pathlib.Path("src") / default_version / "index.ts"
+    versioned_index_ts_path = pathlib.Path(
+        "src") / default_version / "index.ts"
     # TODO(Summer): replace the tsc command with a command that lists the exports.
-    output: str = subprocess.run(
-        ["tsc", "--arg1", "yadayada", str(versioned_index_ts_path)],
-        universal_newlines=True,
-        stdout=subprocess.PIPE,
-        check=True,
-    ).stdout.strip()
-    # TODO(Summer): Generate index.ts from output.
-    first_name, last_name, age = "Jeffrey", "Rennie", "<secret>"
-    index_ts_body = f"""
-First name: {first_name}
-Last name: {last_name}
-Age: {age}
-    """
-    with open(pathlib.Path("src") / "index.ts", "wt") as index_ts:
-        index_ts.write(index_ts_body)
+    # output: str = subprocess.run(
+    #     ["tsc", "--arg1", "yadayada", str(versioned_index_ts_path)],
+    #     universal_newlines=True,
+    #     stdout=subprocess.PIPE,
+    #     check=True,
+    # ).stdout.strip()
+    # Generate index.ts from output.
+    clients: typing.List[str] = find_clients(versioned_index_ts_path)
+    print('=======clients::', type(clients))
+    process_template(versions, default_version, clients)
+
 
 generate_index_ts(versions, "v1")
 
