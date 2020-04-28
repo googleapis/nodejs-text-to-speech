@@ -123,23 +123,23 @@ async function synthesizeSsmlFile(ssmlFile, outputFile) {
 async function main() {
 require(`yargs`) // eslint-disable-line
     .demand(1)
-    .command('text <text>', 'Synthesizes audio file from text', {}, opts =>
+    .command('text <text>', 'Synthesizes audio file from text', {}, (opts) =>
       synthesizeText(opts.text, opts.outputFile)
     )
-    .command('ssml <ssml>', 'Synthesizes audio file from SSML', {}, opts =>
+    .command('ssml <ssml>', 'Synthesizes audio file from SSML', {}, (opts) =>
       synthesizeSsml(opts.ssml, opts.outputFile)
     )
     .command(
       'text-file <textFile>',
       'Synthesizes audio file from text in a file',
       {},
-      opts => synthesizeTextFile(opts.textFile, opts.outputFile)
+      (opts) => synthesizeTextFile(opts.textFile, opts.outputFile)
     )
     .command(
       'ssml-file <ssmlFile>',
       'Synthesizes audio file from SSML in a file',
       {},
-      opts => synthesizeSsmlFile(opts.ssmlFile, opts.outputFile)
+      (opts) => synthesizeSsmlFile(opts.ssmlFile, opts.outputFile)
     )
     .options({
       outputFile: {

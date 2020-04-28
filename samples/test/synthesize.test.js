@@ -20,13 +20,13 @@ const {assert} = require('chai');
 const {describe, it, afterEach} = require('mocha');
 const cp = require('child_process');
 
-const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
+const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
 
 const cmd = 'node synthesize.js';
 const text = 'Hello there.';
 const ssml = '<speak>Hello there.</speak>';
 const outputFile = 'test-output.mp3';
-const files = ['hello.txt', 'hello.ssml'].map(name => {
+const files = ['hello.txt', 'hello.ssml'].map((name) => {
   return {
     name,
     localPath: path.resolve(path.join(__dirname, `../resources/${name}`)),

@@ -50,7 +50,7 @@ async function main() {
       'synthesize <text>',
       'Detects speech in a local audio file.',
       {},
-      opts =>
+      (opts) =>
         synthesizeText(
           opts.text,
           opts.outputFile,

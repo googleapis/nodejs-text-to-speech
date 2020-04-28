@@ -24,12 +24,12 @@ async function listVoices() {
   const voices = result.voices;
 
   console.log('Voices:');
-  voices.forEach(voice => {
+  voices.forEach((voice) => {
     console.log(`Name: ${voice.name}`);
     console.log(`  SSML Voice Gender: ${voice.ssmlGender}`);
     console.log(`  Natural Sample Rate Hertz: ${voice.naturalSampleRateHertz}`);
     console.log('  Supported languages:');
-    voice.languageCodes.forEach(languageCode => {
+    voice.languageCodes.forEach((languageCode) => {
       console.log(`    ${languageCode}`);
     });
   });
