@@ -4,22 +4,22 @@
       "git": {
         "name": ".",
         "remote": "git@github.com:googleapis/nodejs-text-to-speech.git",
-        "sha": "1938ebcb05f6b87dc5d27e6488950f996b1a633a"
+        "sha": "99ba5bae71bbb42ca8860b0533757da0590d7220"
       }
     },
     {
       "git": {
         "name": "googleapis",
         "remote": "https://github.com/googleapis/googleapis.git",
-        "sha": "756b174de4a122461993c1c583345533d819936d",
-        "internalRef": "308824110"
+        "sha": "7e1c7603c8cb2f05ef29842405654ff8a9d3d108",
+        "internalRef": "309058279"
       }
     },
     {
-      "template": {
-        "name": "node_library",
-        "origin": "synthtool.gcp",
-        "version": "2020.2.4"
+      "git": {
+        "name": "synthtool",
+        "remote": "https://github.com/googleapis/synthtool.git",
+        "sha": "6b685a261479e27fd959dd7b1ff253d6cf595172"
       }
     }
   ],
