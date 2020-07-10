@@ -43,7 +43,8 @@
     "precompile": "gts clean"
   },
   "dependencies": {
-    "google-gax": "^2.1.0"
+    "google-gax": "^2.1.0",
+    "protobufjs": "^6.9.0"
   },
   "devDependencies": {
     "@types/mocha": "^7.0.0",
