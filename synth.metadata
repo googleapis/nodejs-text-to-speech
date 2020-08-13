@@ -4,15 +4,15 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/nodejs-text-to-speech.git",
-        "sha": "e6e41b84ec9adcbb4a68ba2c1f3969c427f85a93"
+        "sha": "7feac343aee1c44bf3f8fb80b9e27fe5f43ec821"
       }
     },
     {
       "git": {
         "name": "googleapis",
         "remote": "https://github.com/googleapis/googleapis.git",
-        "sha": "9b0c7b1a4665909bd18a0e0fd33004945b5c9c13",
-        "internalRef": "325528080"
+        "sha": "94006b3cb8d2fb44703cf535da15608eed6bf7db",
+        "internalRef": "325949033"
       }
     },
     {
