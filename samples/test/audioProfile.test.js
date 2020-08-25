@@ -34,18 +34,13 @@ describe('audio profile', () => {
         // Ignore error
       }
     }
-    [outputFile1, outputFile2, outputFile3, outputFile4].map(unlink);
+    [outputFile].map(unlink);
   });
 
   it('should synthesize human audio using hardware profile', async () => {
     assert.strictEqual(fs.existsSync(outputFile4), false);
-    const output = execSync(
-      `${cmd} ${text} ${outputFile}`
-    );
-    assert.match(
-      output,
-      new RegExp(`Audio content written to file:`)
-    );
+    const output = execSync(`${cmd} ${text} ${outputFile}`);
+    assert.match(output, new RegExp(`Audio content written to file:`));
     assert.ok(fs.existsSync(outputFile));
   });
 });

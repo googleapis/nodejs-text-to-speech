@@ -38,13 +38,10 @@ async function main(
   const client = new speech.TextToSpeechClient();
 
   async function synthesizeWithEffectsProfile() {
-
     // Add one or more effects profiles to array.
     // Refer to documentation for more details:
     // https://cloud.google.com/text-to-speech/docs/audio-profiles
-    const effectsProfileId = [
-      'telephony-class-application'
-    ];
+    const effectsProfileId = ['telephony-class-application'];
 
     const request = {
       input: {text: text},
@@ -59,7 +56,7 @@ async function main(
   }
   // [END tts_synthesize_text_audio_profile_beta]
 
-  synthesizeWithEffectsProfile()
+  synthesizeWithEffectsProfile();
 }
 
 main(...process.argv.slice(2)).catch(err => {
