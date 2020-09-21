@@ -22,7 +22,8 @@ const cp = require('child_process');
 const execSync = cmd => cp.execSync(cmd, {encoding: 'utf-8'});
 
 const cmd = 'node audioProfile.js';
-const text = '"Hello Everybody!  This is an Audio Profile Optimized Sound Byte."';
+const text =
+  '"Hello Everybody!  This is an Audio Profile Optimized Sound Byte."';
 const outputFile = 'phonetest.mp3';
 
 describe('audio profile', () => {
@@ -40,7 +41,7 @@ describe('audio profile', () => {
   it('should synthesize human audio using hardware profile', async () => {
     assert.strictEqual(fs.existsSync(outputFile), false);
     const output = execSync(`${cmd} ${text} ${outputFile}`);
-    assert.match(output, new RegExp(`Audio content written to file:`));
+    assert.match(output, new RegExp('Audio content written to file:'));
     assert.ok(fs.existsSync(outputFile));
   });
 });
