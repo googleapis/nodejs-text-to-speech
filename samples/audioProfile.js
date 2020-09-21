@@ -14,12 +14,12 @@
 
 'use strict';
 async function main(
-  text,
-  outputFile = './resources/output.mp3',
+  text = 'Hello Everybody!  This is an audio profile optimized sound byte.',
+  outputFile = './resources/phone.mp3',
   languageCode = 'en-US',
   ssmlGender = 'FEMALE'
 ) {
-  //[START tts_synthesize_text_audio_profile_beta]
+  //[START tts_synthesize_text_audio_profile]
 
   /**
    * TODO(developer): Uncomment these variables before running the sample.
@@ -54,7 +54,7 @@ async function main(
     await writeFile(outputFile, response.audioContent, 'binary');
     console.log(`Audio content written to file: ${outputFile}`);
   }
-  // [END tts_synthesize_text_audio_profile_beta]
+  // [END tts_synthesize_text_audio_profile]
 
   synthesizeWithEffectsProfile();
 }
