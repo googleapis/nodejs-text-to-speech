@@ -38,7 +38,7 @@ describe('audio profile', () => {
   });
 
   it('should synthesize human audio using hardware profile', async () => {
-    assert.strictEqual(fs.existsSync(outputFile4), false);
+    assert.strictEqual(fs.existsSync(outputFile), false);
     const output = execSync(`${cmd} ${text} ${outputFile}`);
     assert.match(output, new RegExp(`Audio content written to file:`));
     assert.ok(fs.existsSync(outputFile));
