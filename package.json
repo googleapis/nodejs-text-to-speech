@@ -1,7 +1,7 @@
 {
   "name": "@google-cloud/text-to-speech",
   "description": "Cloud Text-to-Speech API client for Node.js",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "license": "Apache-2.0",
   "author": "Google LLC",
   "engines": {
@@ -43,7 +43,7 @@
     "precompile": "gts clean"
   },
   "dependencies": {
-    "google-gax": "^2.12.0"
+    "google-gax": "^2.17.0"
   },
   "devDependencies": {
     "@types/mocha": "^8.0.0",
