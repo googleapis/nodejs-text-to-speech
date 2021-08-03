@@ -2,7 +2,7 @@
   "default_version": "v1",
   "release_level": "ga",
   "requires_billing": true,
-  "client_documentation": "https://googleapis.dev/nodejs/text-to-speech/latest",
+  "client_documentation": "https://cloud.google.com/nodejs/docs/reference/text-to-speech/latest",
   "codeowner_team": "@googleapis/ml-apis",
   "language": "nodejs",
   "issue_tracker": "https://issuetracker.google.com/savedsearches/5235428",
