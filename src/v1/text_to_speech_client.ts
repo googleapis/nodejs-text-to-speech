@@ -331,6 +331,10 @@ export class TextToSpeechClient {
    *   for more details and examples.
    * @example
    * const [response] = await client.listVoices(request);
+   *
+   * @example <caption>include:samples/generated/v1/text_to_speech.list_voices.js</caption>
+   * region_tag:texttospeech_list_voices_sample
+   *
    */
   listVoices(
     request?: protos.google.cloud.texttospeech.v1.IListVoicesRequest,
@@ -419,6 +423,10 @@ export class TextToSpeechClient {
    *   for more details and examples.
    * @example
    * const [response] = await client.synthesizeSpeech(request);
+   *
+   * @example <caption>include:samples/generated/v1/text_to_speech.synthesize_speech.js</caption>
+   * region_tag:texttospeech_synthesize_speech_sample
+   *
    */
   synthesizeSpeech(
     request?: protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest,

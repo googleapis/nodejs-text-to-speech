@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 'use strict';
 
 function main(input, voice, audioConfig) {
@@ -32,9 +31,13 @@ function main(input, voice, audioConfig) {
    *  Required. The configuration of the synthesized audio.
    */
   // const audioConfig = ''
+  /**
+   *  Whether and what timepoints are returned in the response.
+   */
+  // const enableTimePointing = 1234
 
   // Imports the Texttospeech library
-  const {TextToSpeechClient} = require('@google-cloud/text-to-speech').v1;
+  const {TextToSpeechClient} = require('@google-cloud/text-to-speech').v1beta1;
 
   // Instantiates a client
   const texttospeechClient = new TextToSpeechClient();
