@@ -12,48 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 'use strict';
 
-function main(input, voice, audioConfig) {
-  // [START texttospeech_v1_generated_TextToSpeech_SynthesizeSpeech_async]
+function main() {
+  // [START texttospeech_v1beta1_generated_TextToSpeech_ListVoices_async]
   /**
    * TODO(developer): Uncomment these variables before running the sample.
    */
   /**
-   *  Required. The Synthesizer requires either plain text or SSML as input.
+   *  Optional. Recommended.
+   *  [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
+   *  If not specified, the API will return all supported voices.
+   *  If specified, the ListVoices call will only return voices that can be used
+   *  to synthesize this language_code. E.g. when specifying "en-NZ", you will
+   *  get supported "en-NZ" voices; when specifying "no", you will get supported
+   *  "no-\*" (Norwegian) and "nb-\*" (Norwegian Bokmal) voices; specifying "zh"
+   *  will also get supported "cmn-\*" voices; specifying "zh-hk" will also get
+   *  supported "yue-hk" voices.
    */
-  // const input = ''
-  /**
-   *  Required. The desired voice of the synthesized audio.
-   */
-  // const voice = ''
-  /**
-   *  Required. The configuration of the synthesized audio.
-   */
-  // const audioConfig = ''
+  // const languageCode = 'abc123'
 
   // Imports the Texttospeech library
-  const {TextToSpeechClient} = require('@google-cloud/text-to-speech').v1;
+  const {TextToSpeechClient} = require('@google-cloud/text-to-speech').v1beta1;
 
   // Instantiates a client
   const texttospeechClient = new TextToSpeechClient();
 
-  async function synthesizeSpeech() {
+  async function listVoices() {
     // Construct request
-    const request = {
-      input,
-      voice,
-      audioConfig,
-    };
+    const request = {};
 
     // Run request
-    const response = await texttospeechClient.synthesizeSpeech(request);
+    const response = await texttospeechClient.listVoices(request);
     console.log(response);
   }
 
-  synthesizeSpeech();
-  // [END texttospeech_v1_generated_TextToSpeech_SynthesizeSpeech_async]
+  listVoices();
+  // [END texttospeech_v1beta1_generated_TextToSpeech_ListVoices_async]
 }
 
 process.on('unhandledRejection', err => {
