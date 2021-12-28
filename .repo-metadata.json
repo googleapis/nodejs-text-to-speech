@@ -13,5 +13,5 @@
   "api_id": "texttospeech.googleapis.com",
   "repo": "googleapis/nodejs-text-to-speech",
   "api_shortname": "text-to-speech",
-  "library_type": ""
+  "library_type": "GAPIC_AUTO"
 }
