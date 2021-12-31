@@ -6,7 +6,6 @@
 
 
 [![npm version](https://img.shields.io/npm/v/@google-cloud/text-to-speech.svg)](https://www.npmjs.org/package/@google-cloud/text-to-speech)
-[![codecov](https://img.shields.io/codecov/c/github/googleapis/nodejs-text-to-speech/main.svg?style=flat)](https://codecov.io/gh/googleapis/nodejs-text-to-speech)
 
 
 
