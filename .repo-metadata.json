@@ -12,6 +12,6 @@
   "name_pretty": "Google Cloud Text-to-Speech",
   "api_id": "texttospeech.googleapis.com",
   "repo": "googleapis/nodejs-text-to-speech",
-  "api_shortname": "text-to-speech",
+  "api_shortname": "texttospeech",
   "library_type": "GAPIC_AUTO"
 }
