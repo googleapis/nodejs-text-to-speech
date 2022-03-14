@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -53,6 +53,7 @@ export class TextToSpeechClient {
   };
   warn: (code: string, message: string, warnType?: string) => void;
   innerApiCalls: {[name: string]: Function};
+  pathTemplates: {[name: string]: gax.PathTemplate};
   textToSpeechStub?: Promise<{[name: string]: Function}>;
 
   /**
@@ -149,6 +150,15 @@ export class TextToSpeechClient {
     }
     // Load the applicable protos.
     this._protos = this._gaxGrpc.loadProtoJSON(jsonProtos);
+
+    // This API contains "path templates"; forward-slash-separated
+    // identifiers to uniquely identify resources within the API.
+    // Create useful helper objects for these.
+    this.pathTemplates = {
+      modelPathTemplate: new this._gaxModule.PathTemplate(
+        'projects/{project}/locations/{location}/models/{model}'
+      ),
+    };
 
     // Put together the default options sent with requests.
     this._defaults = this._gaxGrpc.constructSettings(
@@ -288,13 +298,13 @@ export class TextToSpeechClient {
    *   The request object that will be sent.
    * @param {string} [request.languageCode]
    *   Optional. Recommended.
-   *   [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag. If
-   *   specified, the ListVoices call will only return voices that can be used to
-   *   synthesize this language_code. E.g. when specifying `"en-NZ"`, you will get
-   *   supported `"en-\*"` voices; when specifying `"no"`, you will get supported
-   *   `"no-\*"` (Norwegian) and `"nb-\*"` (Norwegian Bokmal) voices; specifying
-   *   `"zh"` will also get supported `"cmn-\*"` voices; specifying `"zh-hk"` will
-   *   also get supported `"yue-\*"` voices.
+   *   [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
+   *   If not specified, the API will return all supported voices.
+   *   If specified, the ListVoices call will only return voices that can be used
+   *   to synthesize this language_code. For example, if you specify `"en-NZ"`,
+   *   all `"en-NZ"` voices will be returned. If you specify `"no"`, both
+   *   `"no-\*"` (Norwegian) and `"nb-\*"` (Norwegian Bokmal) voices will be
+   *   returned.
    * @param {object} [options]
    *   Call options. See {@link https://googleapis.dev/nodejs/google-gax/latest/interfaces/CallOptions.html|CallOptions} for more details.
    * @returns {Promise} - The promise which resolves to an array.
@@ -462,6 +472,59 @@ export class TextToSpeechClient {
     return this.innerApiCalls.synthesizeSpeech(request, options, callback);
   }
 
+  // --------------------
+  // -- Path templates --
+  // --------------------
+
+  /**
+   * Return a fully-qualified model resource name string.
+   *
+   * @param {string} project
+   * @param {string} location
+   * @param {string} model
+   * @returns {string} Resource name string.
+   */
+  modelPath(project: string, location: string, model: string) {
+    return this.pathTemplates.modelPathTemplate.render({
+      project: project,
+      location: location,
+      model: model,
+    });
+  }
+
+  /**
+   * Parse the project from Model resource.
+   *
+   * @param {string} modelName
+   *   A fully-qualified path representing Model resource.
+   * @returns {string} A string representing the project.
+   */
+  matchProjectFromModelName(modelName: string) {
+    return this.pathTemplates.modelPathTemplate.match(modelName).project;
+  }
+
+  /**
+   * Parse the location from Model resource.
+   *
+   * @param {string} modelName
+   *   A fully-qualified path representing Model resource.
+   * @returns {string} A string representing the location.
+   */
+  matchLocationFromModelName(modelName: string) {
+    return this.pathTemplates.modelPathTemplate.match(modelName).location;
+  }
+
+  /**
+   * Parse the model from Model resource.
+   *
+   * @param {string} modelName
+   *   A fully-qualified path representing Model resource.
+   * @returns {string} A string representing the model.
+   */
+  matchModelFromModelName(modelName: string) {
+    return this.pathTemplates.modelPathTemplate.match(modelName).model;
+  }
+
   /**
    * Terminate the gRPC channel and close the client.
    *
@@ -469,9 +532,8 @@ export class TextToSpeechClient {
    * @returns {Promise} A promise that resolves when the client is closed.
    */
   close(): Promise<void> {
-    this.initialize();
-    if (!this._terminated) {
-      return this.textToSpeechStub!.then(stub => {
+    if (this.textToSpeechStub && !this._terminated) {
+      return this.textToSpeechStub.then(stub => {
         this._terminated = true;
         stub.close();
       });
