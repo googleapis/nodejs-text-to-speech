@@ -4,6 +4,14 @@
 
 [1]: https://www.npmjs.com/package/@google-cloud/text-to-speech?activeTab=versions
 
+## [3.5.0](https://github.com/googleapis/nodejs-text-to-speech/compare/v3.4.0...v3.5.0) (2022-05-09)
+
+
+### Features
+
+* Consolidate task details into service API and add orchestration result details ([74f7cfb](https://github.com/googleapis/nodejs-text-to-speech/commit/74f7cfb6947c0b9b35dcddb9ede343877b4938a6))
+* promote CustomVoiceParams to v1 ([#591](https://github.com/googleapis/nodejs-text-to-speech/issues/591)) ([fe647dc](https://github.com/googleapis/nodejs-text-to-speech/commit/fe647dc8735792333e0203844279da6ada898e1a))
+
 ## [3.4.0](https://www.github.com/googleapis/nodejs-text-to-speech/compare/v3.3.1...v3.4.0) (2021-12-09)
 
 
